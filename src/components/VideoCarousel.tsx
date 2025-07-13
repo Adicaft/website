@@ -20,26 +20,26 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   const [showHearts, setShowHearts] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Auto-increment counters
-  useEffect(() => {
-    const likeInterval = setInterval(() => {
-      setLikes(prev => prev + Math.floor(Math.random() * 3) + 1);
-    }, 3000);
+  // Disabled auto-increment counters as requested
+  // useEffect(() => {
+  //   const likeInterval = setInterval(() => {
+  //     setLikes(prev => prev + Math.floor(Math.random() * 3) + 1);
+  //   }, 3000);
 
-    const shareInterval = setInterval(() => {
-      setShares(prev => prev + 1);
-    }, 5000);
+  //   const shareInterval = setInterval(() => {
+  //     setShares(prev => prev + 1);
+  //   }, 5000);
 
-    const commentInterval = setInterval(() => {
-      setComments(prev => prev + Math.floor(Math.random() * 2) + 1);
-    }, 4000);
+  //   const commentInterval = setInterval(() => {
+  //     setComments(prev => prev + Math.floor(Math.random() * 2) + 1);
+  //   }, 4000);
 
-    return () => {
-      clearInterval(likeInterval);
-      clearInterval(shareInterval);
-      clearInterval(commentInterval);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(likeInterval);
+  //     clearInterval(shareInterval);
+  //     clearInterval(commentInterval);
+  //   };
+  // }, []);
 
   // Auto-play when hovered
   useEffect(() => {
@@ -81,7 +81,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
   return (
     <motion.div
-      className={`relative flex-shrink-0 w-80 h-[600px] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-300 ${
+      className={`relative flex-shrink-0 w-64 h-[480px] lg:w-80 lg:h-[600px] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-300 ${
         isActive ? 'scale-105 shadow-2xl ring-2 ring-lime-400' : 'scale-95 opacity-70'
       }`}
       whileHover={{ scale: isActive ? 1.08 : 0.98 }}
@@ -249,8 +249,9 @@ const VideoCarousel = () => {
 
   // Auto-slide every 5 seconds
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval);
+    // Disabled auto-scroll as requested
+    // const interval = setInterval(nextSlide, 5000);
+    // return () => clearInterval(interval);
   }, []);
 
   return (
@@ -260,26 +261,29 @@ const VideoCarousel = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
+        className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 lg:w-14 lg:h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={16} className="lg:w-6 lg:h-6" />
       </motion.button>
       
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
+        className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 lg:w-14 lg:h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={16} className="lg:w-6 lg:h-6" />
       </motion.button>
 
       {/* Video Cards Container */}
-      <div className="overflow-hidden px-20">
+      <div className="overflow-hidden px-12 lg:px-20">
         <motion.div
           className="flex gap-8 justify-center items-center"
-          animate={{ x: -(currentIndex + totalVideos) * 352 }} // 352 = 320px width + 32px gap
+          animate={{ x: -(currentIndex + totalVideos) * 288 }} // Fixed calculation for mobile
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          style={{ 
+            transform: `translateX(-${(currentIndex + totalVideos) * (window.innerWidth < 1024 ? 288 : 352)}px)` 
+          }}
         >
           {extendedVideos.map((video, index) => (
             <VideoCard

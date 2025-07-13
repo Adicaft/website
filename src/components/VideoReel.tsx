@@ -16,18 +16,19 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const likeInterval = setInterval(() => {
-      setLikes(prev => prev + Math.floor(Math.random() * 3) + 1);
-    }, 5000);
+    // Disabled auto-increment as requested
+    // const likeInterval = setInterval(() => {
+    //   setLikes(prev => prev + Math.floor(Math.random() * 3) + 1);
+    // }, 5000);
 
-    const shareInterval = setInterval(() => {
-      setShares(prev => prev + 1);
-    }, 8000);
+    // const shareInterval = setInterval(() => {
+    //   setShares(prev => prev + 1);
+    // }, 8000);
 
-    return () => {
-      clearInterval(likeInterval);
-      clearInterval(shareInterval);
-    };
+    // return () => {
+    //   clearInterval(likeInterval);
+    //   clearInterval(shareInterval);
+    // };
   }, []);
 
   useEffect(() => {

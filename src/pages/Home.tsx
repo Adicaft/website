@@ -111,11 +111,11 @@ const Home = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="mb-6 lg:mb-8"
+            className="mb-4 lg:mb-8"
           >
-            <div className="w-20 h-20 lg:w-32 lg:h-32 mx-auto mb-4 lg:mb-6 rounded-full bg-gradient-to-br from-lime-400 to-purple-500 p-1">
+            <div className="w-16 h-16 lg:w-32 lg:h-32 mx-auto mb-3 lg:mb-6 rounded-full bg-gradient-to-br from-lime-400 to-purple-500 p-1">
               <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
-                <span className="text-xl lg:text-4xl">🎬</span>
+                <span className="text-lg lg:text-4xl">🎬</span>
               </div>
             </div>
           </motion.div>
@@ -124,7 +124,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-light text-white mb-6 lg:mb-8 leading-tight"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-8xl font-light text-white mb-4 lg:mb-8 leading-tight px-2"
           >
             I Am{' '}
             <TypewriterEffect
@@ -140,12 +140,12 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-6 lg:mb-8"
+            className="mb-4 lg:mb-8 px-2"
           >
-            <h2 className="text-lg sm:text-xl md:text-3xl lg:text-4xl text-slate-300 mb-3 lg:mb-4">
+            <h2 className="text-base sm:text-lg md:text-2xl lg:text-4xl text-slate-300 mb-2 lg:mb-4">
               Hello, I'm <span className="text-lime-400 font-semibold">Aditya Soni</span>
             </h2>
-            <div className="text-base sm:text-lg md:text-xl text-purple-400 font-medium">
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl text-purple-400 font-medium">
               Video Editor • VFX Artist • Director
             </div>
           </motion.div>
@@ -154,7 +154,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 mb-8 lg:mb-12 max-w-4xl mx-auto font-light leading-relaxed px-2"
+            className="text-sm sm:text-base md:text-lg lg:text-2xl text-slate-300 mb-6 lg:mb-12 max-w-4xl mx-auto font-light leading-relaxed px-4"
           >
             Passionate Video Editor and VFX Artist crafting cinematic experiences. 
             Currently pursuing BSc in VFX and Animation from AAFT, bringing stories to life 
@@ -165,15 +165,16 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 lg:gap-4 mb-8 lg:mb-16"
+            className="flex flex-col items-center justify-center gap-4 mb-8 lg:mb-16 px-4"
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto"
             >
               <Link
                 to="/portfolio"
-                className="bg-lime-400 text-slate-900 px-6 lg:px-8 py-3 lg:py-4 rounded-full text-base lg:text-lg font-medium hover:bg-lime-300 transition-colors flex items-center space-x-2 w-full sm:w-auto justify-center"
+                className="bg-lime-400 text-slate-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors flex items-center space-x-2 w-full justify-center min-w-[200px]"
               >
                 <Play size={18} />
                 <span>View My Work</span>
@@ -182,10 +183,11 @@ const Home = () => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto"
             >
               <Link
                 to="/contact"
-                className="border border-slate-600 text-white px-6 lg:px-8 py-3 lg:py-4 rounded-full text-base lg:text-lg font-medium hover:bg-slate-800 transition-colors w-full sm:w-auto text-center"
+                className="border border-slate-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors w-full text-center min-w-[200px]"
               >
                 Hire Me
               </Link>
@@ -196,13 +198,13 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-6 lg:space-x-8 text-slate-400 text-sm lg:text-base"
+            className="flex flex-col items-center justify-center space-y-3 text-slate-400 text-sm lg:text-base"
           >
             <div className="flex items-center space-x-2">
               <Star className="text-lime-400" size={18} />
               <span>Professional VFX Artist</span>
             </div>
-            <div className="w-px h-4 bg-slate-600 hidden sm:block" />
+            <div className="w-16 h-px bg-slate-600" />
             <div>Based in Uttar Pradesh, India</div>
           </motion.div>
         </div>
@@ -458,10 +460,11 @@ const Home = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
               >
                 <Link
                   to="/contact"
-                  className="bg-lime-400 text-slate-900 px-6 lg:px-8 py-3 lg:py-4 rounded-full text-base lg:text-lg font-medium hover:bg-lime-300 transition-colors w-full sm:w-auto text-center"
+                  className="bg-lime-400 text-slate-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors w-full text-center min-w-[200px]"
                 >
                   Start Your Project
                 </Link>
@@ -469,10 +472,11 @@ const Home = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
               >
                 <Link
                   to="/portfolio"
-                  className="border border-slate-600 text-white px-6 lg:px-8 py-3 lg:py-4 rounded-full text-base lg:text-lg font-medium hover:bg-slate-800 transition-colors w-full sm:w-auto text-center"
+                  className="border border-slate-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors w-full text-center min-w-[200px]"
                 >
                   View Portfolio
                 </Link>

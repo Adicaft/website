@@ -101,8 +101,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "320px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-2xl bg-slate-800/90 px-4 py-3 lg:flex",
-        visible && "bg-slate-800/60 border border-slate-700/50 backdrop-blur-xl",
+        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-2xl bg-slate-800/70 px-4 py-3 lg:flex",
+        visible && "bg-slate-800/70 border border-slate-700/50 backdrop-blur-xl",
         className,
       )}
     >
@@ -163,8 +163,8 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-slate-800/90 px-4 py-3 lg:hidden",
-        visible && "bg-slate-800/95 border border-slate-700/50",
+        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-slate-800/70 px-4 py-3 lg:hidden",
+        visible && "bg-slate-800/70 border border-slate-700/50",
         className,
       )}
     >
