@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Play, Award, Users, Star, ArrowRight, Zap, Eye, Clock, CheckCircle } from 'lucide-react';
+import { Play, Award, Users, Star, ArrowRight, Zap, Eye, Clock } from 'lucide-react';
 import VideoReel from '../components/VideoReel';
 import VideoCarousel from '../components/VideoCarousel';
-import TypewriterEffect from '../components/TypewriterEffect';
+import SparklesHero from '../components/SparklesHero';
+import { AnimatedTestimonials } from '../components/ui/animated-testimonials';
 
 const Home = () => {
   const stats = [
@@ -37,189 +38,41 @@ const Home = () => {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      role: 'Content Creator',
-      text: 'Aditya transformed my raw footage into a cinematic masterpiece. His attention to detail is incredible!',
-      avatar: '👩‍💼'
+      quote: "Aditya transformed my raw footage into a cinematic masterpiece. His attention to detail and creative vision exceeded all my expectations. The final result was absolutely stunning!",
+      name: "Sarah Johnson",
+      designation: "Content Creator & YouTuber",
+      src: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
-      name: 'Mike Chen',
-      role: 'Brand Manager',
-      text: 'The VFX work exceeded our expectations. Professional, creative, and delivered on time.',
-      avatar: '👨‍💻'
+      quote: "The VFX work exceeded our expectations. Professional, creative, and delivered on time. Aditya's technical skills combined with artistic vision make him a standout in the industry.",
+      name: "Mike Chen",
+      designation: "Brand Manager at TechFlow",
+      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
-      name: 'Lisa Rodriguez',
-      role: 'YouTuber',
-      text: 'Working with Aditya has elevated my content quality significantly. Highly recommended!',
-      avatar: '👩‍🎨'
-    }
+      quote: "Working with Aditya has elevated my content quality significantly. His understanding of storytelling through visual effects is remarkable. Highly recommended for any creative project!",
+      name: "Lisa Rodriguez",
+      designation: "Digital Marketing Director",
+      src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      quote: "Outstanding support and robust creative solutions. It's rare to find an artist who delivers on all promises while maintaining such high quality standards throughout the project.",
+      name: "James Kim",
+      designation: "Creative Director at InnovateSphere",
+      src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      quote: "The scalability and performance of Aditya's work have been game-changing for our organization. His ability to handle complex projects while maintaining creativity is impressive.",
+      name: "Emily Watson",
+      designation: "VP of Creative at FutureNet",
+      src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
   ];
 
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-purple-900">
-          <motion.div
-            animate={{
-              background: [
-                "radial-gradient(circle at 20% 50%, rgba(225, 252, 2, 0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 40% 80%, rgba(225, 252, 2, 0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 20% 50%, rgba(225, 252, 2, 0.1) 0%, transparent 50%)"
-              ]
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0"
-          />
-        </div>
-
-        {/* Floating Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="absolute top-32 sm:top-24 lg:top-32 right-2 sm:right-4 lg:right-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 sm:p-3 lg:p-4 text-center max-w-[80px] sm:max-w-[120px] lg:max-w-none z-10"
-        >
-          <div className="flex items-center justify-center mb-2">
-            <Award className="text-lime-400 mr-1" size={10} />
-            <span className="text-lime-400 font-bold text-xs">VFX</span>
-          </div>
-          <div className="text-white font-semibold text-xs">Expert</div>
-          <div className="text-slate-400 text-xs">Since 2024</div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="absolute top-48 sm:top-40 lg:top-48 left-2 sm:left-4 lg:left-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 sm:p-3 lg:p-4 text-center max-w-[80px] sm:max-w-[120px] lg:max-w-none z-10"
-        >
-          <div className="flex items-center justify-center mb-2">
-            <Users className="text-purple-400 mr-1" size={10} />
-            <span className="text-purple-400 font-bold text-xs">50+</span>
-          </div>
-          <div className="text-white font-semibold text-xs">Projects</div>
-          <div className="text-slate-400 text-xs">Completed</div>
-        </motion.div>
-
-        {/* Main Content */}
-        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 lg:px-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="mb-4 lg:mb-8"
-          >
-            <div className="w-16 h-16 lg:w-32 lg:h-32 mx-auto mb-3 lg:mb-6 rounded-full bg-gradient-to-br from-lime-400 to-purple-500 p-1">
-              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
-                <span className="text-lg lg:text-4xl">🎬</span>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-8xl font-light text-white mb-4 lg:mb-8 leading-tight px-2"
-          >
-            I Am{' '}
-            <TypewriterEffect
-              words={['VFX Artist', 'Video Editor', 'Director', 'Creator', 'Motion Designer', 'Compositor', 'Storyteller']}
-              className="text-lime-400 font-medium"
-              typeSpeed={150}
-              deleteSpeed={100}
-              delayBetweenWords={2000}
-            />
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-4 lg:mb-8 px-2"
-          >
-            <h2 className="text-base sm:text-lg md:text-2xl lg:text-4xl text-slate-300 mb-2 lg:mb-4">
-              Hello, I'm <span className="text-lime-400 font-semibold">Aditya Soni</span>
-            </h2>
-            <div className="text-sm sm:text-base md:text-lg lg:text-xl text-purple-400 font-medium">
-              Video Editor • VFX Artist • Director
-            </div>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-sm sm:text-base md:text-lg lg:text-2xl text-slate-300 mb-6 lg:mb-12 max-w-4xl mx-auto font-light leading-relaxed px-4"
-          >
-            Passionate Video Editor and VFX Artist crafting cinematic experiences. 
-            Currently pursuing BSc in VFX and Animation from AAFT, bringing stories to life 
-            through cutting-edge visual effects and post-production.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col items-center justify-center gap-4 mb-8 lg:mb-16 px-4"
-          >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto"
-            >
-              <Link
-                to="/portfolio"
-                className="bg-lime-400 text-slate-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors flex items-center space-x-2 w-full justify-center min-w-[200px]"
-              >
-                <Play size={18} />
-                <span>View My Work</span>
-              </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto"
-            >
-              <Link
-                to="/contact"
-                className="border border-slate-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors w-full text-center min-w-[200px]"
-              >
-                Hire Me
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="flex flex-col items-center justify-center space-y-3 text-slate-400 text-sm lg:text-base"
-          >
-            <div className="flex items-center space-x-2">
-              <Star className="text-lime-400" size={18} />
-              <span>Professional VFX Artist</span>
-            </div>
-            <div className="w-16 h-px bg-slate-600" />
-            <div>Based in Uttar Pradesh, India</div>
-          </motion.div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="w-5 h-8 lg:w-6 lg:h-10 border-2 border-slate-600 rounded-full flex justify-center">
-            <div className="w-1 h-2 lg:h-3 bg-slate-400 rounded-full mt-2"></div>
-          </div>
-        </motion.div>
-      </section>
+      <SparklesHero />
 
       {/* Stats Section */}
       <section className="py-12 lg:py-20 bg-slate-800/50">
@@ -406,37 +259,7 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-6 lg:p-8"
-              >
-                <div className="flex items-center space-x-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={16} className="text-lime-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-300 mb-6 leading-relaxed">
-                  "{testimonial.text}"
-                </p>
-                <div className="flex items-center space-x-3">
-                  <div className="text-2xl">{testimonial.avatar}</div>
-                  <div>
-                    <div className="text-white font-semibold">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-slate-400 text-sm">
-                      {testimonial.role}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
         </div>
       </section>
 
