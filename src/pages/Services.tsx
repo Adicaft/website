@@ -141,6 +141,23 @@ const Services = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-center mt-20"
           >
+            {/* Value Proposition Box */}
+            <div className="bg-gradient-to-r from-emerald-400/10 to-teal-400/10 border border-emerald-400/30 rounded-2xl p-6 mb-8 max-w-4xl mx-auto">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white font-bold text-sm">💎</span>
+                </div>
+                <div className="text-left">
+                  <h4 className="text-emerald-400 font-semibold mb-2">Why Choose Adityakeyedits?</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    "Every project gets my personal attention. I don't just deliver what you ask for—I deliver 
+                    what your audience needs to see. Fast turnaround, unlimited revisions until you're 100% 
+                    satisfied, and always within budget. Your success is my success."
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div className="bg-gradient-to-r from-lime-400/10 to-purple-500/10 border border-lime-400/30 rounded-3xl p-6 lg:p-8 max-w-4xl mx-auto">
               <h3 className="text-2xl lg:text-3xl font-semibold text-white mb-4">
                 Ready to bring your vision to life?

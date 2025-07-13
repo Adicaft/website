@@ -14,15 +14,15 @@ const Contact = () => {
     {
       icon: Phone,
       label: 'Phone',
-      value: '+91 6388934473',
-      href: 'tel:+916388934473',
+      value: '+91 6388934474',
+      href: 'tel:+916388934474',
       color: 'from-green-400 to-green-600'
     },
     {
       icon: MessageCircle,
       label: 'WhatsApp',
       value: 'Chat with me',
-      href: 'https://wa.me/916388934473',
+      href: 'https://wa.me/916388934474',
       color: 'from-emerald-400 to-emerald-600'
     }
   ];
@@ -55,6 +55,23 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
+              {/* Communication Style Box */}
+              <div className="bg-gradient-to-r from-blue-400/10 to-cyan-400/10 border border-blue-400/30 rounded-2xl p-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-white font-bold text-sm">💬</span>
+                  </div>
+                  <div>
+                    <h4 className="text-blue-400 font-semibold mb-2">Let's Talk!</h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      "I love discussing creative ideas! Whether you have a clear vision or just a rough concept, 
+                      I'm here to help shape it into something amazing. No project is too big or too small—
+                      every story deserves to be told beautifully."
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-6 lg:p-8">
                 <h3 className="text-2xl lg:text-3xl font-semibold text-white mb-6">
                   Let's Connect
@@ -129,7 +146,12 @@ const Contact = () => {
                 Send a Message
               </h3>
 
-              <form className="space-y-6">
+              <form 
+                action="mailto:adityasoni4474@gmail.com"
+                method="post"
+                encType="text/plain"
+                className="space-y-6"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-slate-400 text-sm mb-2">
@@ -137,6 +159,8 @@ const Contact = () => {
                     </label>
                     <input
                       type="text"
+                      name="name"
+                      required
                       className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors"
                       placeholder="John Doe"
                     />
@@ -147,6 +171,8 @@ const Contact = () => {
                     </label>
                     <input
                       type="email"
+                      name="email"
+                      required
                       className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors"
                       placeholder="john@example.com"
                     />
@@ -157,7 +183,10 @@ const Contact = () => {
                   <label className="block text-slate-400 text-sm mb-2">
                     Project Type
                   </label>
-                  <select className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors">
+                  <select 
+                    name="project_type"
+                    className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors"
+                  >
                     <option>Video Editing</option>
                     <option>Visual Effects</option>
                     <option>Motion Graphics</option>
@@ -171,7 +200,10 @@ const Contact = () => {
                   <label className="block text-slate-400 text-sm mb-2">
                     Project Budget
                   </label>
-                  <select className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors">
+                  <select 
+                    name="budget"
+                    className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors"
+                  >
                     <option>$500 - $1,000</option>
                     <option>$1,000 - $2,500</option>
                     <option>$2,500 - $5,000</option>
@@ -186,6 +218,8 @@ const Contact = () => {
                   </label>
                   <textarea
                     rows={5}
+                    name="message"
+                    required
                     className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors resize-none"
                     placeholder="Tell me about your project, timeline, and any specific requirements..."
                   />
@@ -203,21 +237,6 @@ const Contact = () => {
               </form>
             </motion.div>
           </div>
-
-          {/* WhatsApp Floating Button */}
-          <motion.a
-            href="https://wa.me/916388934473"
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 1, type: "spring", stiffness: 200 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 lg:w-16 lg:h-16 bg-green-500 hover:bg-green-400 rounded-full flex items-center justify-center shadow-2xl transition-colors"
-          >
-            <MessageCircle className="text-white" size={24} />
-          </motion.a>
         </div>
       </section>
     </div>

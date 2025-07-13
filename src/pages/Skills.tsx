@@ -113,6 +113,23 @@ const Skills = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-6 lg:p-8"
           >
+            {/* Industry Insight Box */}
+            <div className="bg-gradient-to-r from-blue-400/10 to-cyan-400/10 border border-blue-400/30 rounded-2xl p-4 mb-8">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white font-bold text-sm">🎯</span>
+                </div>
+                <div>
+                  <h4 className="text-blue-400 font-semibold mb-2">Industry Insight</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    "Mastering these tools is just the beginning. The real skill lies in knowing which tool 
+                    to use for each creative challenge. I've spent countless hours perfecting workflows 
+                    that deliver professional results efficiently."
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <h3 className="text-2xl lg:text-3xl font-semibold text-white mb-8 text-center">
               Software Proficiency
             </h3>
@@ -145,6 +162,23 @@ const Skills = () => {
                   </div>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Learning Tip Box */}
+            <div className="bg-gradient-to-r from-orange-400/10 to-red-400/10 border border-orange-400/30 rounded-2xl p-4 mt-8">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white font-bold text-sm">📚</span>
+                </div>
+                <div>
+                  <h4 className="text-orange-400 font-semibold mb-2">Continuous Learning</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    "The VFX industry evolves rapidly. I dedicate time weekly to learning new techniques, 
+                    exploring emerging tools, and staying updated with industry trends. This ensures 
+                    your projects always feature cutting-edge techniques."
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

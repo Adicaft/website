@@ -5,7 +5,7 @@ import { Mail, Phone, Calendar, GraduationCap, Briefcase } from 'lucide-react';
 const About = () => {
   const personalInfo = [
     { icon: Mail, label: 'E-mail', value: 'adityasoni4474@gmail.com', clickable: true, href: 'mailto:adityasoni4474@gmail.com' },
-    { icon: Phone, label: 'Phone', value: '+91 6388934473', clickable: true, href: 'tel:+916388934473' },
+    { icon: Phone, label: 'Phone', value: '+91 6388934474', clickable: true, href: 'tel:+916388934474' },
     { icon: GraduationCap, label: 'Education', value: 'BSc VFX & Animation - AAFT' },
     { icon: Briefcase, label: 'Experience', value: 'Freelance since April 2024' }
   ];
@@ -72,6 +72,22 @@ const About = () => {
               className="space-y-8"
             >
               <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-6 lg:p-8">
+                {/* Pro Tip Box */}
+                <div className="bg-gradient-to-r from-lime-400/10 to-emerald-400/10 border border-lime-400/30 rounded-2xl p-4 mb-6">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-lime-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-slate-900 font-bold text-sm">💡</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lime-400 font-semibold mb-2">Pro Tip from Aditya</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">
+                        "The secret to great VFX isn't just technical skill—it's understanding the story you're telling. 
+                        Every effect should serve the narrative and enhance the emotional impact of your content."
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <h3 className="text-2xl lg:text-3xl font-semibold text-white mb-6">
                   My Story
                 </h3>
@@ -89,6 +105,23 @@ const About = () => {
                   Currently pursuing BSc in VFX and Animation from AAFT, I'm constantly learning 
                   and evolving my craft to stay at the forefront of visual storytelling.
                 </p>
+
+                {/* Client Communication Box */}
+                <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border border-purple-400/30 rounded-2xl p-4 mt-6">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-purple-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-white font-bold text-sm">🤝</span>
+                    </div>
+                    <div>
+                      <h4 className="text-purple-400 font-semibold mb-2">Working Together</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">
+                        "I believe in collaborative creativity. Your vision combined with my technical expertise 
+                        creates magic. I keep you involved throughout the process, ensuring the final result 
+                        exceeds your expectations."
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

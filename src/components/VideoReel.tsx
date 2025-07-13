@@ -4,12 +4,13 @@ import { Play, Heart, Share2, MoreHorizontal, Volume2, VolumeX } from 'lucide-re
 
 interface VideoReelProps {
   index: number;
+  enableSound?: boolean;
 }
 
-const VideoReel: React.FC<VideoReelProps> = ({ index }) => {
+const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(!enableSound);
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -31,6 +32,8 @@ const VideoReel: React.FC<VideoReelProps> = ({ index }) => {
 
   useEffect(() => {
     if (videoRef.current) {
+      videoRef.current.muted = !enableSound;
+      setIsMuted(!enableSound);
       if (isHovered) {
         videoRef.current.play();
         setIsPlaying(true);

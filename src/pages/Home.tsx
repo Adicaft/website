@@ -81,28 +81,28 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
-          className="absolute top-24 lg:top-32 right-4 lg:right-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-3 lg:p-4 text-center"
+          className="absolute top-32 sm:top-24 lg:top-32 right-2 sm:right-4 lg:right-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 sm:p-3 lg:p-4 text-center max-w-[80px] sm:max-w-[120px] lg:max-w-none z-10"
         >
           <div className="flex items-center justify-center mb-2">
-            <Award className="text-lime-400 mr-2" size={16} />
-            <span className="text-lime-400 font-bold text-sm">VFX</span>
+            <Award className="text-lime-400 mr-1" size={10} />
+            <span className="text-lime-400 font-bold text-xs">VFX</span>
           </div>
-          <div className="text-white font-semibold text-sm lg:text-lg">Expert</div>
-          <div className="text-slate-400 text-xs lg:text-sm">Since 2024</div>
+          <div className="text-white font-semibold text-xs">Expert</div>
+          <div className="text-slate-400 text-xs">Since 2024</div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
-          className="absolute top-40 lg:top-48 left-4 lg:left-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-3 lg:p-4 text-center"
+          className="absolute top-48 sm:top-40 lg:top-48 left-2 sm:left-4 lg:left-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 sm:p-3 lg:p-4 text-center max-w-[80px] sm:max-w-[120px] lg:max-w-none z-10"
         >
           <div className="flex items-center justify-center mb-2">
-            <Users className="text-purple-400 mr-2" size={16} />
-            <span className="text-purple-400 font-bold text-sm">50+</span>
+            <Users className="text-purple-400 mr-1" size={10} />
+            <span className="text-purple-400 font-bold text-xs">50+</span>
           </div>
-          <div className="text-white font-semibold text-sm lg:text-base">Projects</div>
-          <div className="text-slate-400 text-xs lg:text-sm">Completed</div>
+          <div className="text-white font-semibold text-xs">Projects</div>
+          <div className="text-slate-400 text-xs">Completed</div>
         </motion.div>
 
         {/* Main Content */}
@@ -247,6 +247,23 @@ const Home = () => {
       {/* Video Carousel Section */}
       <section className="py-12 lg:py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          {/* Client Communication Box */}
+          <div className="bg-gradient-to-r from-lime-400/10 to-emerald-400/10 border border-lime-400/30 rounded-2xl p-4 mb-12 max-w-4xl mx-auto">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-lime-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span className="text-slate-900 font-bold text-sm">🎬</span>
+              </div>
+              <div>
+                <h4 className="text-lime-400 font-semibold mb-2">Behind the Scenes</h4>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  "Each video you see here represents hours of meticulous work—from initial concept to final render. 
+                  I believe in showing you the process, not just the result. Transparency builds trust, and trust 
+                  creates lasting partnerships."
+                </p>
+              </div>
+            </div>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -289,6 +306,23 @@ const Home = () => {
       {/* Services Preview */}
       <section className="py-12 lg:py-20 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          {/* Process Insight Box */}
+          <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border border-purple-400/30 rounded-2xl p-4 mb-12 max-w-4xl mx-auto">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-purple-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span className="text-white font-bold text-sm">⚡</span>
+              </div>
+              <div>
+                <h4 className="text-purple-400 font-semibold mb-2">My Process</h4>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  "I start every project with a detailed consultation to understand your vision. Then I create 
+                  a custom workflow that ensures quality, meets deadlines, and stays within budget. 
+                  Regular updates keep you in the loop throughout the entire process."
+                </p>
+              </div>
+            </div>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

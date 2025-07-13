@@ -9,12 +9,14 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Footer from './components/Footer';
 import CursorFollower from './components/CursorFollower';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   return (
     <Router>
       <div className="bg-slate-900 min-h-screen">
         <CursorFollower />
+        <WhatsAppButton />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

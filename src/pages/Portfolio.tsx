@@ -24,6 +24,23 @@ const Portfolio = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
+            {/* Portfolio Insight Box */}
+            <div className="bg-gradient-to-r from-yellow-400/10 to-orange-400/10 border border-yellow-400/30 rounded-2xl p-4 mb-8 max-w-4xl mx-auto">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-slate-900 font-bold text-sm">🏆</span>
+                </div>
+                <div>
+                  <h4 className="text-yellow-400 font-semibold mb-2">Portfolio Highlights</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    "Each project in my portfolio represents a unique challenge overcome and a client's vision 
+                    brought to life. From corporate presentations to creative campaigns, I adapt my style 
+                    to match your brand and audience perfectly."
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6">
               My{' '}
               <span className="text-lime-400 font-medium">Portfolio</span>
@@ -61,7 +78,7 @@ const Portfolio = () => {
           {/* Video Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 mb-12">
             {Array.from({ length: totalVideos }, (_, index) => (
-              <VideoReel key={index} index={index} />
+              <VideoReel key={index} index={index} enableSound={true} />
             ))}
           </div>
 
