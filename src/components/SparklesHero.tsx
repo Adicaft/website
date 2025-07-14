@@ -109,7 +109,7 @@ const SparklesHero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col items-center justify-center gap-4 mb-8 lg:mb-16 px-4"
+          className="flex flex-col items-center justify-center gap-6 mb-8 lg:mb-16 px-4"
         >
           <motion.div
             whileHover={{ scale: 1.05 }}
