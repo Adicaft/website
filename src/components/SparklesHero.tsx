@@ -36,28 +36,28 @@ const SparklesHero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
-        className="absolute top-32 sm:top-24 lg:top-32 right-2 sm:right-4 lg:right-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 sm:p-3 lg:p-4 text-center max-w-[80px] sm:max-w-[120px] lg:max-w-none z-10"
+        className="absolute top-24 sm:top-20 lg:top-32 right-4 sm:right-6 lg:right-12 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-3 sm:p-4 lg:p-5 text-center min-w-[100px] sm:min-w-[120px] lg:min-w-[140px] z-10"
       >
-        <div className="flex items-center justify-center mb-2">
-          <Star className="text-lime-400 mr-1" size={10} />
-          <span className="text-lime-400 font-bold text-xs">VFX</span>
+        <div className="flex items-center justify-center mb-2 lg:mb-3">
+          <Star className="text-lime-400 mr-1 lg:mr-2" size={12} />
+          <span className="text-lime-400 font-bold text-xs lg:text-sm">VFX</span>
         </div>
-        <div className="text-white font-semibold text-xs">Expert</div>
-        <div className="text-slate-400 text-xs">Since 2024</div>
+        <div className="text-white font-semibold text-sm lg:text-base">Expert</div>
+        <div className="text-slate-400 text-xs lg:text-sm">Since 2024</div>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2 }}
-        className="absolute top-48 sm:top-40 lg:top-48 left-2 sm:left-4 lg:left-8 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 sm:p-3 lg:p-4 text-center max-w-[80px] sm:max-w-[120px] lg:max-w-none z-10"
+        className="absolute top-40 sm:top-36 lg:top-48 left-4 sm:left-6 lg:left-12 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-3 sm:p-4 lg:p-5 text-center min-w-[100px] sm:min-w-[120px] lg:min-w-[140px] z-10"
       >
-        <div className="flex items-center justify-center mb-2">
-          <Play className="text-purple-400 mr-1" size={10} />
-          <span className="text-purple-400 font-bold text-xs">50+</span>
+        <div className="flex items-center justify-center mb-2 lg:mb-3">
+          <Play className="text-purple-400 mr-1 lg:mr-2" size={12} />
+          <span className="text-purple-400 font-bold text-xs lg:text-sm">50+</span>
         </div>
-        <div className="text-white font-semibold text-xs">Projects</div>
-        <div className="text-slate-400 text-xs">Completed</div>
+        <div className="text-white font-semibold text-sm lg:text-base">Projects</div>
+        <div className="text-slate-400 text-xs lg:text-sm">Completed</div>
       </motion.div>
 
       {/* Main Content */}

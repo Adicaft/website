@@ -148,7 +148,7 @@ const Home = () => {
             >
               <Link
                 to="/portfolio"
-                className="bg-lime-400 text-slate-900 px-6 lg:px-8 py-3 lg:py-4 rounded-full text-base lg:text-lg font-medium hover:bg-lime-300 transition-colors inline-flex items-center space-x-2"
+                className="bg-lime-400 text-slate-900 px-8 lg:px-10 py-4 lg:py-5 rounded-full text-base lg:text-lg font-medium hover:bg-lime-300 transition-colors inline-flex items-center space-x-3"
               >
                 <span>View All Projects</span>
                 <ArrowRight size={18} />
@@ -231,7 +231,7 @@ const Home = () => {
             >
               <Link
                 to="/services"
-                className="bg-slate-700/50 hover:bg-lime-400 hover:text-slate-900 text-white px-6 lg:px-8 py-3 lg:py-4 rounded-full text-base lg:text-lg font-medium transition-all duration-300 inline-flex items-center space-x-2"
+                className="bg-slate-700/50 hover:bg-lime-400 hover:text-slate-900 text-white px-8 lg:px-10 py-4 lg:py-5 rounded-full text-base lg:text-lg font-medium transition-all duration-300 inline-flex items-center space-x-3"
               >
                 <span>View All Services</span>
                 <ArrowRight size={18} />
@@ -287,7 +287,7 @@ const Home = () => {
               >
                 <Link
                   to="/contact"
-                  className="bg-lime-400 text-slate-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors w-full text-center min-w-[200px]"
+                  className="bg-lime-400 text-slate-900 px-10 py-5 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors w-full text-center min-w-[220px]"
                 >
                   Start Your Project
                 </Link>
@@ -299,7 +299,7 @@ const Home = () => {
               >
                 <Link
                   to="/portfolio"
-                  className="border border-slate-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors w-full text-center min-w-[200px]"
+                  className="border border-slate-600 text-white px-10 py-5 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors w-full text-center min-w-[220px]"
                 >
                   View Portfolio
                 </Link>

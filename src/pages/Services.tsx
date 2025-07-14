@@ -125,7 +125,7 @@ const Services = () => {
                 >
                   <Link
                     to="/contact"
-                    className="w-full bg-slate-700/50 hover:bg-lime-400 hover:text-slate-900 text-white py-3 rounded-xl transition-all duration-300 font-medium text-center block"
+                    className="w-full bg-slate-700/50 hover:bg-lime-400 hover:text-slate-900 text-white py-4 rounded-xl transition-all duration-300 font-medium text-center block"
                   >
                     Get Quote
                   </Link>
@@ -172,7 +172,7 @@ const Services = () => {
               >
                 <Link
                   to="/contact"
-                  className="bg-lime-400 text-slate-900 px-6 lg:px-8 py-3 lg:py-4 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors inline-block"
+                  className="bg-lime-400 text-slate-900 px-10 lg:px-12 py-4 lg:py-5 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors inline-block"
                 >
                   Start Your Project
                 </Link>

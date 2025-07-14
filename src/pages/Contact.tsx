@@ -229,7 +229,7 @@ const Contact = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full bg-lime-400 text-slate-900 py-4 rounded-xl text-lg font-medium hover:bg-lime-300 transition-colors flex items-center justify-center space-x-2"
+                  className="w-full bg-lime-400 text-slate-900 py-5 rounded-xl text-lg font-medium hover:bg-lime-300 transition-colors flex items-center justify-center space-x-3"
                 >
                   <Send size={20} />
                   <span>Send Message</span>
