@@ -44,16 +44,49 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   // Auto-play when hovered
   useEffect(() => {
     if (videoRef.current) {
+      const video = videoRef.current;
+      video.playsInline = true;
+      video.setAttribute('webkit-playsinline', 'true');
+      video.setAttribute('playsinline', 'true');
+      
       if (isHovered) {
-        videoRef.current.play();
-        setIsPlaying(true);
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch((error) => {
+              console.log("Auto-play was prevented:", error);
+              setIsPlaying(false);
+            });
+        }
       } else {
-        videoRef.current.pause();
+        video.pause();
         setIsPlaying(false);
       }
     }
   }, [isHovered]);
 
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch((error) => {
+              console.log("Play was prevented:", error);
+            });
+        }
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (videoRef.current) {
@@ -87,6 +120,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       whileHover={{ scale: isActive ? 1.08 : 0.98 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
+      onClick={handleVideoClick}
     >
       {/* Video Background */}
       <video
@@ -96,7 +130,9 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
         muted={isMuted}
         loop
         playsInline
+        webkit-playsinline="true"
         preload="metadata"
+        controls={false}
       />
       
       {/* Fade overlays at top and bottom */}

@@ -54,8 +54,8 @@ const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
     <span className={className}>
       {currentText}
       <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
         className="text-lime-400"
       >
         |

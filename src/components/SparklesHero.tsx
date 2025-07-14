@@ -105,21 +105,10 @@ const SparklesHero = () => {
           </div>
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-sm sm:text-base md:text-lg lg:text-2xl text-slate-300 mb-6 lg:mb-12 max-w-4xl mx-auto font-light leading-relaxed px-4"
-        >
-          Passionate Video Editor and VFX Artist crafting cinematic experiences. 
-          Currently pursuing BSc in VFX and Animation from AAFT, bringing stories to life 
-          through cutting-edge visual effects and post-production.
-        </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col items-center justify-center gap-4 mb-8 lg:mb-16 px-4"
         >
           <motion.div
@@ -152,7 +141,7 @@ const SparklesHero = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 0.8 }}
           className="flex flex-col items-center justify-center space-y-3 text-slate-400 text-sm lg:text-base"
         >
           <div className="flex items-center space-x-2">

@@ -32,6 +32,7 @@ export const SparklesCore = (props: ParticlesProps) => {
   } = props;
   const [init, setInit] = useState(false);
   
+  
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
@@ -40,6 +41,7 @@ export const SparklesCore = (props: ParticlesProps) => {
     });
   }, []);
   
+  
   const controls = useAnimation();
 
   const particlesLoaded = async (container?: Container) => {
@@ -47,13 +49,15 @@ export const SparklesCore = (props: ParticlesProps) => {
       controls.start({
         opacity: 1,
         transition: {
-          duration: 1,
+          duration: 0.5,
+          ease: "easeOut",
         },
       });
     }
   };
 
   const generatedId = useId();
+  
   
   return (
     <motion.div animate={controls} className={cn("opacity-0", className)}>
@@ -72,26 +76,26 @@ export const SparklesCore = (props: ParticlesProps) => {
               enable: false,
               zIndex: 1,
             },
-            fpsLimit: 120,
+            fpsLimit: 60,
             interactivity: {
               events: {
                 onClick: {
                   enable: true,
-                  mode: "push",
+                  mode: "repulse",
                 },
                 onHover: {
                   enable: false,
-                  mode: "repulse",
+                  mode: "none",
                 },
                 resize: true as any,
               },
               modes: {
                 push: {
-                  quantity: 4,
+                  quantity: 2,
                 },
                 repulse: {
-                  distance: 200,
-                  duration: 0.4,
+                  distance: 100,
+                  duration: 0.2,
                 },
               },
             },

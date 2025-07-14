@@ -44,7 +44,7 @@ export const AnimatedTestimonials = ({
   };
 
   return (
-    <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
+    <div className="mx-auto max-w-sm px-4 py-12 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12 lg:py-20">
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
         <div>
           <div className="relative h-80 w-full">
@@ -75,7 +75,7 @@ export const AnimatedTestimonials = ({
                     rotate: randomRotateY(),
                   }}
                   transition={{
-                    duration: 0.4,
+                    duration: 0.6,
                     ease: "easeInOut",
                   }}
                   className="absolute inset-0 origin-bottom"
@@ -109,7 +109,7 @@ export const AnimatedTestimonials = ({
               opacity: 0,
             }}
             transition={{
-              duration: 0.2,
+              duration: 0.4,
               ease: "easeInOut",
             }}
           >
@@ -134,7 +134,7 @@ export const AnimatedTestimonials = ({
                     y: 0,
                   }}
                   transition={{
-                    duration: 0.2,
+                    duration: 0.3,
                     ease: "easeInOut",
                     delay: 0.02 * index,
                   }}
@@ -148,13 +148,13 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-slate-800/50 hover:bg-slate-700/50 transition-colors"
+              className="group/button flex h-12 w-12 items-center justify-center rounded-full bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-300"
             >
               <ChevronLeft className="h-5 w-5 text-lime-400 transition-transform duration-300 group-hover/button:rotate-12" />
             </button>
             <button
               onClick={handleNext}
-              className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-slate-800/50 hover:bg-slate-700/50 transition-colors"
+              className="group/button flex h-12 w-12 items-center justify-center rounded-full bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-300"
             >
               <ChevronRight className="h-5 w-5 text-lime-400 transition-transform duration-300 group-hover/button:-rotate-12" />
             </button>

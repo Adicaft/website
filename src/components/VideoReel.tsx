@@ -33,17 +33,31 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.muted = !enableSound;
+      const video = videoRef.current;
+      video.muted = !enableSound;
+      video.playsInline = true;
+      video.setAttribute('webkit-playsinline', 'true');
+      video.setAttribute('playsinline', 'true');
+      
       setIsMuted(!enableSound);
       if (isHovered) {
-        videoRef.current.play();
-        setIsPlaying(true);
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch((error) => {
+              console.log("Auto-play was prevented:", error);
+              setIsPlaying(false);
+            });
+        }
       } else {
-        videoRef.current.pause();
+        video.pause();
         setIsPlaying(false);
       }
     }
-  }, [isHovered]);
+  }, [isHovered, enableSound]);
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -53,6 +67,25 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     }
   };
 
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch((error) => {
+              console.log("Play was prevented:", error);
+            });
+        }
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
   const handleLike = (e: React.MouseEvent) => {
     e.stopPropagation();
     setLikes(prev => prev + 1);
@@ -90,7 +123,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
         </div>
 
         {/* Video Container */}
-        <div className="relative aspect-[9/16] bg-slate-800">
+        <div className="relative aspect-[9/16] bg-slate-800" onClick={handleVideoClick}>
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -98,7 +131,9 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
             muted={isMuted}
             loop
             playsInline
+            webkit-playsinline="true"
             preload="metadata"
+            controls={false}
           />
           
           {/* Play Overlay */}
