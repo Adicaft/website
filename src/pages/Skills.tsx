@@ -42,13 +42,13 @@ const skillCategories = [
 ];
 
 const softwareLogos = [
-  { name: 'Premiere Pro', logo: '🎬', proficiency: 95 },
+  { name: 'Premiere Pro', logo: '/adobe-premiere-logo-png_seeklogo-380789.png', proficiency: 95 },
   { name: 'After Effects', logo: '🎭', proficiency: 90 },
-  { name: 'DaVinci Resolve', logo: '🎨', proficiency: 85 },
+  { name: 'DaVinci Resolve', logo: '/nuke.webp', proficiency: 85 },
   { name: 'Photoshop', logo: '🖼️', proficiency: 88 },
-  { name: 'Illustrator', logo: '✏️', proficiency: 80 },
-  { name: 'Nuke', logo: '💥', proficiency: 75 },
-  { name: 'Maya', logo: '🏗️', proficiency: 70 },
+  { name: 'Illustrator', logo: '/Illustrator-Logo-768x480.png', proficiency: 80 },
+  { name: 'Nuke', logo: '/nuke.webp', proficiency: 75 },
+  { name: 'Maya', logo: '/maya.webp', proficiency: 70 },
   { name: 'Fairlight', logo: '🎵', proficiency: 82 }
 ];
 
@@ -143,7 +143,17 @@ const Skills = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="flex items-center space-x-4"
                 >
-                  <div className="text-2xl lg:text-3xl">{software.logo}</div>
+                  <div className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center">
+                    {software.logo.startsWith('/') ? (
+                      <img 
+                        src={software.logo} 
+                        alt={software.name}
+                        className="w-full h-full object-contain"
+                      />
+                    ) : (
+                      <span className="text-2xl lg:text-3xl">{software.logo}</span>
+                    )}
+                  </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-white font-medium">{software.name}</span>

@@ -75,7 +75,7 @@ export const AnimatedTestimonials = ({
                     rotate: randomRotateY(),
                   }}
                   transition={{
-                    duration: 0.6,
+                    duration: 0.3,
                     ease: "easeInOut",
                   }}
                   className="absolute inset-0 origin-bottom"
@@ -109,7 +109,7 @@ export const AnimatedTestimonials = ({
               opacity: 0,
             }}
             transition={{
-              duration: 0.4,
+              duration: 0.2,
               ease: "easeInOut",
             }}
           >
@@ -134,7 +134,7 @@ export const AnimatedTestimonials = ({
                     y: 0,
                   }}
                   transition={{
-                    duration: 0.3,
+                    duration: 0.2,
                     ease: "easeInOut",
                     delay: 0.02 * index,
                   }}

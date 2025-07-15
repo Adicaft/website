@@ -7,57 +7,85 @@ interface VideoReelProps {
   enableSound?: boolean;
 }
 
+const videoUrls = [
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752169895/Toddler_Affirmation_Story_zxhpfs.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752248716/STILL_STUCK_41_final_lujo7e.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752248720/1st_ads_imxd1z.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472028/obesit_48_final_d3wdiw.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472029/5sign_for_thyroid_47_final_i0gkeu.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472029/STILL_STUCK_41_final_rsqwzx.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472103/trial_rqf1rb.mp4"
+];
+
 const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(!enableSound);
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
+  const [isLoading, setIsLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const videoUrl = videoUrls[index % videoUrls.length];
+
   useEffect(() => {
-    // Disabled auto-increment as requested
-    // const likeInterval = setInterval(() => {
-    //   setLikes(prev => prev + Math.floor(Math.random() * 3) + 1);
-    // }, 5000);
+    const video = videoRef.current;
+    if (!video) return;
 
-    // const shareInterval = setInterval(() => {
-    //   setShares(prev => prev + 1);
-    // }, 8000);
+    const handleLoadedData = () => {
+      setIsLoading(false);
+    };
 
-    // return () => {
-    //   clearInterval(likeInterval);
-    //   clearInterval(shareInterval);
-    // };
+    const handleCanPlay = () => {
+      if (isHovered && !isPlaying) {
+        playVideo();
+      }
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('canplay', handleCanPlay);
+
+    // Set video attributes for mobile compatibility
+    video.muted = !enableSound;
+    video.playsInline = true;
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('playsinline', 'true');
+    video.preload = 'metadata';
+
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.removeEventListener('canplay', handleCanPlay);
+    };
   }, []);
 
-  useEffect(() => {
-    if (videoRef.current) {
-      const video = videoRef.current;
-      video.muted = !enableSound;
-      video.playsInline = true;
-      video.setAttribute('webkit-playsinline', 'true');
-      video.setAttribute('playsinline', 'true');
-      
-      setIsMuted(!enableSound);
-      if (isHovered) {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              console.log("Auto-play was prevented:", error);
-              setIsPlaying(false);
-            });
-        }
-      } else {
-        video.pause();
-        setIsPlaying(false);
-      }
+  const playVideo = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    try {
+      await video.play();
+      setIsPlaying(true);
+    } catch (error) {
+      console.log("Video play failed:", error);
+      setIsPlaying(false);
     }
-  }, [isHovered, enableSound]);
+  };
+
+  const pauseVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.pause();
+    setIsPlaying(false);
+  };
+
+  useEffect(() => {
+    if (isHovered && !isLoading) {
+      playVideo();
+    } else {
+      pauseVideo();
+    }
+  }, [isHovered, isLoading]);
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -68,24 +96,13 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
   };
 
   const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        const playPromise = videoRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              console.log("Play was prevented:", error);
-            });
-        }
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
+    if (isPlaying) {
+      pauseVideo();
+    } else {
+      playVideo();
     }
   };
+
   const handleLike = (e: React.MouseEvent) => {
     e.stopPropagation();
     setLikes(prev => prev + 1);
@@ -100,17 +117,17 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      whileHover={{ scale: 1.01 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       className="relative group cursor-pointer"
     >
       {/* Ambient Glow */}
-      <div className={`absolute -inset-2 lg:-inset-4 bg-gradient-to-r from-lime-400/20 via-purple-500/20 to-pink-500/20 rounded-2xl lg:rounded-3xl blur-xl transition-all duration-500 ${isHovered ? 'opacity-100 scale-110' : 'opacity-50 scale-100'}`} />
+      <div className={`absolute -inset-1 lg:-inset-2 bg-gradient-to-r from-lime-400/10 via-purple-500/10 to-pink-500/10 rounded-2xl lg:rounded-3xl blur-lg transition-all duration-300 ${isHovered ? 'opacity-60 scale-105' : 'opacity-30 scale-100'}`} />
       
       {/* Main Container */}
-      <div className="relative bg-slate-900 rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border border-slate-700/50">
+      <div className="relative bg-slate-900 rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl border border-slate-700/30">
         {/* Header */}
         <div className="absolute top-3 lg:top-4 left-3 lg:left-4 right-3 lg:right-4 z-20 flex items-center justify-between">
           <div className="flex items-center space-x-2 lg:space-x-3">
@@ -124,10 +141,16 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
 
         {/* Video Container */}
         <div className="relative aspect-[9/16] bg-slate-800" onClick={handleVideoClick}>
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+              <div className="w-8 h-8 border-2 border-lime-400 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
+          
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
-            src="https://res.cloudinary.com/dkzn3purp/video/upload/v1752169895/Toddler_Affirmation_Story_zxhpfs.mp4"
+            src={videoUrl}
             muted={isMuted}
             loop
             playsInline
@@ -137,7 +160,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
           />
           
           {/* Play Overlay */}
-          {!isPlaying && (
+          {!isPlaying && !isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20">
               <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                 <Play className="text-white ml-1" size={20} />
@@ -158,35 +181,35 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
           </button>
         </div>
 
-        {/* Right Side Actions */}
-        <div className="absolute right-2 lg:right-4 bottom-16 lg:bottom-20 z-20 flex flex-col space-y-3 lg:space-y-4">
+        {/* Right Side Actions - Moved to bottom right with responsive sizing */}
+        <div className="absolute right-2 sm:right-3 lg:right-4 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col space-y-2 sm:space-y-3 lg:space-y-4">
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleLike}
             className="flex flex-col items-center space-y-1"
           >
-            <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <Heart className="text-white" size={16} />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+              <Heart className="text-white" size={14} />
             </div>
             <span className="text-white text-xs font-semibold">{likes.toLocaleString()}</span>
           </motion.button>
 
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleShare}
             className="flex flex-col items-center space-y-1"
           >
-            <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <Share2 className="text-white" size={16} />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+              <Share2 className="text-white" size={14} />
             </div>
             <span className="text-white text-xs font-semibold">{shares}</span>
           </motion.button>
         </div>
 
         {/* Bottom Caption */}
-        <div className="absolute bottom-3 lg:bottom-4 left-3 lg:left-4 right-12 lg:right-16 z-20">
+        <div className="absolute bottom-3 lg:bottom-4 left-3 lg:left-4 right-12 sm:right-16 lg:right-20 z-20">
           <p className="text-white text-xs lg:text-sm leading-relaxed">
             🎬 VFX Magic in Action ✨
             <br />

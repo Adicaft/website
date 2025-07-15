@@ -8,9 +8,20 @@ interface VideoCardProps {
   company: string;
   isActive: boolean;
   index: number;
+  videoUrl: string;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, index }) => {
+const videoUrls = [
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752169895/Toddler_Affirmation_Story_zxhpfs.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752248716/STILL_STUCK_41_final_lujo7e.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752248720/1st_ads_imxd1z.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472028/obesit_48_final_d3wdiw.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472029/5sign_for_thyroid_47_final_i0gkeu.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472029/STILL_STUCK_41_final_rsqwzx.mp4",
+  "https://res.cloudinary.com/dkzn3purp/video/upload/v1752472103/trial_rqf1rb.mp4"
+];
+
+const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, index, videoUrl }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -18,75 +29,77 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
   const [comments, setComments] = useState(Math.floor(Math.random() * 100) + 20);
   const [showHearts, setShowHearts] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Disabled auto-increment counters as requested
-  // useEffect(() => {
-  //   const likeInterval = setInterval(() => {
-  //     setLikes(prev => prev + Math.floor(Math.random() * 3) + 1);
-  //   }, 3000);
-
-  //   const shareInterval = setInterval(() => {
-  //     setShares(prev => prev + 1);
-  //   }, 5000);
-
-  //   const commentInterval = setInterval(() => {
-  //     setComments(prev => prev + Math.floor(Math.random() * 2) + 1);
-  //   }, 4000);
-
-  //   return () => {
-  //     clearInterval(likeInterval);
-  //     clearInterval(shareInterval);
-  //     clearInterval(commentInterval);
-  //   };
-  // }, []);
-
-  // Auto-play when hovered
   useEffect(() => {
-    if (videoRef.current) {
-      const video = videoRef.current;
-      video.playsInline = true;
-      video.setAttribute('webkit-playsinline', 'true');
-      video.setAttribute('playsinline', 'true');
-      
-      if (isHovered) {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              console.log("Auto-play was prevented:", error);
-              setIsPlaying(false);
-            });
-        }
-      } else {
-        video.pause();
-        setIsPlaying(false);
-      }
-    }
-  }, [isHovered]);
+    const video = videoRef.current;
+    if (!video) return;
 
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        const playPromise = videoRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              console.log("Play was prevented:", error);
-            });
-        }
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
+    const handleLoadedData = () => {
+      setIsLoading(false);
+    };
+
+    const handleCanPlay = () => {
+      if (isActive && isHovered && !isPlaying) {
+        playVideo();
       }
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('canplay', handleCanPlay);
+
+    // Set video attributes for mobile compatibility
+    video.playsInline = true;
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('playsinline', 'true');
+    video.preload = 'metadata';
+
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.removeEventListener('canplay', handleCanPlay);
+    };
+  }, []);
+
+  const playVideo = async () => {
+    const video = videoRef.current;
+    if (!video || !isActive) return;
+
+    try {
+      await video.play();
+      setIsPlaying(true);
+    } catch (error) {
+      console.log("Video play failed:", error);
+      setIsPlaying(false);
     }
   };
+
+  const pauseVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.pause();
+    setIsPlaying(false);
+  };
+
+  useEffect(() => {
+    if (isActive && isHovered && !isLoading) {
+      playVideo();
+    } else {
+      pauseVideo();
+    }
+  }, [isActive, isHovered, isLoading]);
+
+  const handleVideoClick = () => {
+    if (!isActive) return;
+    
+    if (isPlaying) {
+      pauseVideo();
+    } else {
+      playVideo();
+    }
+  };
+
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (videoRef.current) {
@@ -114,7 +127,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
   return (
     <motion.div
-      className={`relative flex-shrink-0 w-64 h-[480px] lg:w-80 lg:h-[600px] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-300 ${
+      className={`relative flex-shrink-0 w-64 h-[480px] lg:w-80 lg:h-[600px] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-200 ${
         isActive ? 'scale-105 shadow-2xl ring-2 ring-lime-400' : 'scale-95 opacity-70'
       }`}
       whileHover={{ scale: isActive ? 1.08 : 0.98 }}
@@ -122,11 +135,18 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       onHoverEnd={() => setIsHovered(false)}
       onClick={handleVideoClick}
     >
+      {/* Loading Spinner */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-800 z-30">
+          <div className="w-8 h-8 border-2 border-lime-400 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+
       {/* Video Background */}
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
-        src="https://res.cloudinary.com/dkzn3purp/video/upload/v1752169895/Toddler_Affirmation_Story_zxhpfs.mp4"
+        src={videoUrl}
         muted={isMuted}
         loop
         playsInline
@@ -140,7 +160,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
       
       {/* Play Button Overlay */}
-      {!isPlaying && (
+      {!isPlaying && !isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
             initial={{ scale: 0 }}
@@ -174,20 +194,20 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
         </button>
       </div>
 
-      {/* Right Side Actions */}
-      <div className="absolute right-4 bottom-32 z-20 flex flex-col space-y-6">
+      {/* Right Side Actions - Aligned to bottom right with responsive sizing */}
+      <div className="absolute right-2 sm:right-3 lg:right-4 bottom-24 sm:bottom-28 lg:bottom-32 z-20 flex flex-col space-y-3 sm:space-y-4 lg:space-y-6">
         {/* Like Button with Hearts Animation */}
         <div className="relative">
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleLike}
             className="flex flex-col items-center space-y-1"
           >
-            <div className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <Heart className="text-red-500 fill-red-500" size={24} />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+              <Heart className="text-red-500 fill-red-500" size={18} />
             </div>
-            <span className="text-white text-sm font-semibold">{likes.toLocaleString()}</span>
+            <span className="text-white text-xs sm:text-sm font-semibold">{likes.toLocaleString()}</span>
           </motion.button>
           
           {/* Flying Hearts Animation */}
@@ -208,7 +228,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
                     transition={{ duration: 2, delay: i * 0.1 }}
                     className="absolute top-0 left-1/2 transform -translate-x-1/2 pointer-events-none"
                   >
-                    <Heart className="text-red-500 fill-red-500" size={20} />
+                    <Heart className="text-red-500 fill-red-500" size={16} />
                   </motion.div>
                 ))}
               </>
@@ -218,37 +238,37 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
         {/* Comment Button */}
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={handleComment}
           className="flex flex-col items-center space-y-1"
         >
-          <div className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-            <MessageCircle className="text-white" size={24} />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+            <MessageCircle className="text-white" size={18} />
           </div>
-          <span className="text-white text-sm font-semibold">{comments}</span>
+          <span className="text-white text-xs sm:text-sm font-semibold">{comments}</span>
         </motion.button>
 
         {/* Share Button */}
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={handleShare}
           className="flex flex-col items-center space-y-1"
         >
-          <div className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-            <Share2 className="text-white" size={24} />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+            <Share2 className="text-white" size={18} />
           </div>
-          <span className="text-white text-sm font-semibold">{shares}</span>
+          <span className="text-white text-xs sm:text-sm font-semibold">{shares}</span>
         </motion.button>
       </div>
       
       {/* Bottom Content */}
-      <div className="absolute bottom-4 left-4 right-20 z-20">
-        <h3 className="text-white font-bold text-xl mb-2">{name}</h3>
-        <p className="text-slate-300 text-base mb-1">{title}</p>
-        <p className="text-slate-400 text-sm mb-3">{company}</p>
-        <p className="text-white text-sm">
+      <div className="absolute bottom-4 left-4 right-16 sm:right-20 lg:right-24 z-20">
+        <h3 className="text-white font-bold text-lg lg:text-xl mb-2">{name}</h3>
+        <p className="text-slate-300 text-sm lg:text-base mb-1">{title}</p>
+        <p className="text-slate-400 text-xs lg:text-sm mb-3">{company}</p>
+        <p className="text-white text-xs lg:text-sm">
           🎬 Amazing VFX work! ✨
           <br />
           <span className="text-lime-400">#Adityakeyedits</span>
@@ -271,8 +291,6 @@ const VideoCarousel = () => {
     { name: "3D Animation", title: "3D Artist", company: "Corporate Video" },
   ];
 
-  // Infinite loop logic
-  const extendedVideos = [...videos, ...videos, ...videos]; // Triple the array for seamless loop
   const totalVideos = videos.length;
 
   const nextSlide = () => {
@@ -283,52 +301,43 @@ const VideoCarousel = () => {
     setCurrentIndex((prev) => (prev - 1 + totalVideos) % totalVideos);
   };
 
-  // Auto-slide every 5 seconds
-  useEffect(() => {
-    // Disabled auto-scroll as requested
-    // const interval = setInterval(nextSlide, 5000);
-    // return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="relative w-full">
       {/* Navigation Buttons */}
       <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={prevSlide}
-        className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 lg:w-14 lg:h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
+        className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-12 lg:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
       >
-        <ChevronLeft size={16} className="lg:w-6 lg:h-6" />
+        <ChevronLeft size={14} className="lg:w-5 lg:h-5" />
       </motion.button>
       
       <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={nextSlide}
-        className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 lg:w-14 lg:h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
+        className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-12 lg:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
       >
-        <ChevronRight size={16} className="lg:w-6 lg:h-6" />
+        <ChevronRight size={14} className="lg:w-5 lg:h-5" />
       </motion.button>
 
       {/* Video Cards Container */}
       <div className="overflow-hidden px-12 lg:px-20">
         <motion.div
           className="flex gap-8 justify-center items-center"
-          animate={{ x: -(currentIndex + totalVideos) * 288 }} // Fixed calculation for mobile
+          animate={{ x: -currentIndex * (window.innerWidth < 1024 ? 288 : 352) }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          style={{ 
-            transform: `translateX(-${(currentIndex + totalVideos) * (window.innerWidth < 1024 ? 288 : 352)}px)` 
-          }}
         >
-          {extendedVideos.map((video, index) => (
+          {videos.map((video, index) => (
             <VideoCard
               key={`${video.name}-${index}`}
               name={video.name}
               title={video.title}
               company={video.company}
-              isActive={index % totalVideos === currentIndex}
+              isActive={index === currentIndex}
               index={index}
+              videoUrl={videoUrls[index % videoUrls.length]}
             />
           ))}
         </motion.div>
@@ -340,7 +349,7 @@ const VideoCarousel = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-all duration-200 ${
               index === currentIndex ? 'bg-lime-400 w-8' : 'bg-slate-600'
             }`}
           />
