@@ -25,6 +25,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [canPlay, setCanPlay] = useState(false);
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
   const [comments, setComments] = useState(Math.floor(Math.random() * 100) + 20);
@@ -38,58 +39,72 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
     const handleLoadedData = () => {
       setIsLoading(false);
+      setCanPlay(true);
     };
 
     const handleCanPlay = () => {
-      if (isActive && isHovered && !isPlaying) {
-        playVideo();
-      }
+      setCanPlay(true);
+    };
+
+    const handleLoadStart = () => {
+      setIsLoading(true);
+      setCanPlay(false);
+    };
+
+    const handleError = () => {
+      setIsLoading(false);
+      setCanPlay(false);
     };
 
     video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadstart', handleLoadStart);
+    video.addEventListener('error', handleError);
 
-    // Set video attributes for mobile compatibility
+    // Mobile-specific setup
+    video.muted = true;
     video.playsInline = true;
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('playsinline', 'true');
-    video.preload = 'auto';
-    video.muted = true; // Always start muted for autoplay compatibility
-    video.crossOrigin = 'anonymous';
+    video.preload = 'metadata';
+    video.controls = false;
 
     return () => {
       video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadstart', handleLoadStart);
+      video.removeEventListener('error', handleError);
     };
   }, []);
 
   const playVideo = async () => {
     const video = videoRef.current;
-    if (!video || !isActive) return;
-
-    // For mobile devices, ensure video is ready
-    if (video.readyState < 2) {
-      video.load();
-      await new Promise(resolve => {
-        video.addEventListener('canplay', resolve, { once: true });
-      });
-    }
+    if (!video || !isActive || !canPlay) return;
 
     try {
-      video.muted = true; // Ensure muted for autoplay
-      await video.play();
-      setIsPlaying(true);
+      // Ensure video is muted for mobile autoplay
+      video.muted = true;
+      
+      // For mobile compatibility
+      if (video.readyState < 3) {
+        await new Promise((resolve) => {
+          const onCanPlay = () => {
+            video.removeEventListener('canplaythrough', onCanPlay);
+            resolve(void 0);
+          };
+          video.addEventListener('canplaythrough', onCanPlay);
+          video.load();
+        });
+      }
+
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        await playPromise;
+        setIsPlaying(true);
+      }
     } catch (error) {
       console.log("Video play failed:", error);
       setIsPlaying(false);
-      // Fallback: try playing muted
-      try {
-        video.muted = true;
-        await video.play();
-        setIsPlaying(true);
-      } catch (fallbackError) {
-        console.log("Fallback play failed:", fallbackError);
-      }
     }
   };
 
@@ -102,22 +117,19 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   };
 
   useEffect(() => {
-    if (isActive && isHovered && !isLoading) {
+    if (isActive && isHovered && canPlay && !isLoading) {
       playVideo();
     } else {
       pauseVideo();
     }
-  }, [isActive, isHovered, isLoading]);
+  }, [isActive, isHovered, canPlay, isLoading]);
 
-  const handleVideoClick = () => {
-    if (!isActive) return;
-    
+  const handleVideoClick = async () => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !isActive || !canPlay) return;
 
     if (video.paused) {
-      video.muted = isMuted;
-      playVideo();
+      await playVideo();
     } else {
       pauseVideo();
     }
@@ -148,6 +160,19 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
     setComments(prev => prev + 1);
   };
 
+  // Mobile touch handlers
+  const handleTouchStart = () => {
+    if (isActive) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (isActive) {
+      setTimeout(() => setIsHovered(false), 3000); // Keep playing for 3 seconds on mobile
+    }
+  };
+
   return (
     <motion.div
       className={`relative flex-shrink-0 w-64 h-[480px] lg:w-80 lg:h-[600px] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-200 ${
@@ -156,6 +181,8 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       whileHover={{ scale: isActive ? 1.08 : 0.98 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       onClick={handleVideoClick}
     >
       {/* Loading Spinner */}
@@ -176,6 +203,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
         webkit-playsinline="true"
         preload="metadata"
         controls={false}
+        style={{ pointerEvents: 'none' }}
       />
       
       {/* Fade overlays at top and bottom */}
@@ -183,8 +211,8 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
       
       {/* Play Button Overlay */}
-      {!isPlaying && !isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center">
+      {!isPlaying && !isLoading && canPlay && (
+        <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}

@@ -20,10 +20,11 @@ const videoUrls = [
 const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(!enableSound);
+  const [isMuted, setIsMuted] = useState(true);
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
   const [isLoading, setIsLoading] = useState(true);
+  const [canPlay, setCanPlay] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const videoUrl = videoUrls[index % videoUrls.length];
@@ -34,58 +35,73 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
 
     const handleLoadedData = () => {
       setIsLoading(false);
+      setCanPlay(true);
     };
 
     const handleCanPlay = () => {
-      if (isHovered && !isPlaying) {
-        playVideo();
-      }
+      setCanPlay(true);
+    };
+
+    const handleLoadStart = () => {
+      setIsLoading(true);
+      setCanPlay(false);
+    };
+
+    const handleError = () => {
+      setIsLoading(false);
+      setCanPlay(false);
+      console.log('Video error for:', videoUrl);
     };
 
     video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadstart', handleLoadStart);
+    video.addEventListener('error', handleError);
 
-    // Set video attributes for mobile compatibility
-    video.muted = true; // Always start muted for autoplay compatibility
+    // Mobile-specific setup
+    video.muted = true;
     video.playsInline = true;
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('playsinline', 'true');
-    video.preload = 'auto';
-    video.crossOrigin = 'anonymous';
+    video.preload = 'metadata';
+    video.controls = false;
 
     return () => {
       video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadstart', handleLoadStart);
+      video.removeEventListener('error', handleError);
     };
-  }, []);
+  }, [videoUrl]);
 
   const playVideo = async () => {
     const video = videoRef.current;
-    if (!video) return;
-
-    // For mobile devices, ensure video is ready
-    if (video.readyState < 2) {
-      video.load();
-      await new Promise(resolve => {
-        video.addEventListener('canplay', resolve, { once: true });
-      });
-    }
+    if (!video || !canPlay) return;
 
     try {
-      video.muted = true; // Ensure muted for autoplay
-      await video.play();
-      setIsPlaying(true);
+      // Ensure video is muted for mobile autoplay
+      video.muted = true;
+      
+      // For mobile compatibility
+      if (video.readyState < 3) {
+        await new Promise((resolve) => {
+          const onCanPlay = () => {
+            video.removeEventListener('canplaythrough', onCanPlay);
+            resolve(void 0);
+          };
+          video.addEventListener('canplaythrough', onCanPlay);
+          video.load();
+        });
+      }
+
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        await playPromise;
+        setIsPlaying(true);
+      }
     } catch (error) {
       console.log("Video play failed:", error);
       setIsPlaying(false);
-      // Fallback: try playing muted
-      try {
-        video.muted = true;
-        await video.play();
-        setIsPlaying(true);
-      } catch (fallbackError) {
-        console.log("Fallback play failed:", fallbackError);
-      }
     }
   };
 
@@ -97,13 +113,14 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     setIsPlaying(false);
   };
 
+  // Handle hover/touch for desktop and mobile
   useEffect(() => {
-    if (isHovered && !isLoading) {
+    if (isHovered && canPlay && !isLoading) {
       playVideo();
     } else {
       pauseVideo();
     }
-  }, [isHovered, isLoading]);
+  }, [isHovered, canPlay, isLoading]);
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -113,14 +130,12 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     }
   };
 
-  const handleVideoClick = () => {
+  const handleVideoClick = async () => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !canPlay) return;
 
     if (video.paused) {
-      // For mobile, ensure we can play
-      video.muted = !enableSound;
-      playVideo();
+      await playVideo();
     } else {
       pauseVideo();
     }
@@ -136,6 +151,15 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     setShares(prev => prev + 1);
   };
 
+  // Mobile touch handlers
+  const handleTouchStart = () => {
+    setIsHovered(true);
+  };
+
+  const handleTouchEnd = () => {
+    setTimeout(() => setIsHovered(false), 3000); // Keep playing for 3 seconds on mobile
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -144,6 +168,8 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
       whileHover={{ scale: 1.01 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       className="relative group cursor-pointer"
     >
       {/* Ambient Glow */}
@@ -165,7 +191,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
         {/* Video Container */}
         <div className="relative aspect-[9/16] bg-slate-800" onClick={handleVideoClick}>
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-800 z-30">
               <div className="w-8 h-8 border-2 border-lime-400 border-t-transparent rounded-full animate-spin"></div>
             </div>
           )}
@@ -180,11 +206,12 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
             webkit-playsinline="true"
             preload="metadata"
             controls={false}
+            style={{ pointerEvents: 'none' }}
           />
           
           {/* Play Overlay */}
-          {!isPlaying && !isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+          {!isPlaying && !isLoading && canPlay && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 z-10">
               <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                 <Play className="text-white ml-1" size={20} />
               </div>
@@ -194,7 +221,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
           {/* Sound Toggle */}
           <button
             onClick={toggleMute}
-            className="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center z-10"
+            className="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center z-20"
           >
             {isMuted ? (
               <VolumeX className="text-white" size={14} />
@@ -204,7 +231,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
           </button>
         </div>
 
-        {/* Right Side Actions - Moved to bottom right with responsive sizing */}
+        {/* Right Side Actions */}
         <div className="absolute right-2 sm:right-3 lg:right-4 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col space-y-2 sm:space-y-3 lg:space-y-4">
           <motion.button
             whileHover={{ scale: 1.05 }}
