@@ -53,7 +53,9 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
     video.playsInline = true;
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('playsinline', 'true');
-    video.preload = 'metadata';
+    video.preload = 'auto';
+    video.muted = true; // Always start muted for autoplay compatibility
+    video.crossOrigin = 'anonymous';
 
     return () => {
       video.removeEventListener('loadeddata', handleLoadedData);
@@ -65,12 +67,29 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
     const video = videoRef.current;
     if (!video || !isActive) return;
 
+    // For mobile devices, ensure video is ready
+    if (video.readyState < 2) {
+      video.load();
+      await new Promise(resolve => {
+        video.addEventListener('canplay', resolve, { once: true });
+      });
+    }
+
     try {
+      video.muted = true; // Ensure muted for autoplay
       await video.play();
       setIsPlaying(true);
     } catch (error) {
       console.log("Video play failed:", error);
       setIsPlaying(false);
+      // Fallback: try playing muted
+      try {
+        video.muted = true;
+        await video.play();
+        setIsPlaying(true);
+      } catch (fallbackError) {
+        console.log("Fallback play failed:", fallbackError);
+      }
     }
   };
 
@@ -93,10 +112,14 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   const handleVideoClick = () => {
     if (!isActive) return;
     
-    if (isPlaying) {
-      pauseVideo();
-    } else {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video.muted = isMuted;
       playVideo();
+    } else {
+      pauseVideo();
     }
   };
 

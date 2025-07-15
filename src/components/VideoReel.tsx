@@ -46,11 +46,12 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     video.addEventListener('canplay', handleCanPlay);
 
     // Set video attributes for mobile compatibility
-    video.muted = !enableSound;
+    video.muted = true; // Always start muted for autoplay compatibility
     video.playsInline = true;
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('playsinline', 'true');
-    video.preload = 'metadata';
+    video.preload = 'auto';
+    video.crossOrigin = 'anonymous';
 
     return () => {
       video.removeEventListener('loadeddata', handleLoadedData);
@@ -62,12 +63,29 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     const video = videoRef.current;
     if (!video) return;
 
+    // For mobile devices, ensure video is ready
+    if (video.readyState < 2) {
+      video.load();
+      await new Promise(resolve => {
+        video.addEventListener('canplay', resolve, { once: true });
+      });
+    }
+
     try {
+      video.muted = true; // Ensure muted for autoplay
       await video.play();
       setIsPlaying(true);
     } catch (error) {
       console.log("Video play failed:", error);
       setIsPlaying(false);
+      // Fallback: try playing muted
+      try {
+        video.muted = true;
+        await video.play();
+        setIsPlaying(true);
+      } catch (fallbackError) {
+        console.log("Fallback play failed:", fallbackError);
+      }
     }
   };
 
@@ -96,10 +114,15 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
   };
 
   const handleVideoClick = () => {
-    if (isPlaying) {
-      pauseVideo();
-    } else {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      // For mobile, ensure we can play
+      video.muted = !enableSound;
       playVideo();
+    } else {
+      pauseVideo();
     }
   };
 

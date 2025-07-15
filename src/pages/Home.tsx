@@ -283,11 +283,11 @@ const Home = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto flex-shrink-0"
               >
                 <Link
                   to="/contact"
-                  className="bg-lime-400 text-slate-900 px-10 py-5 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors w-full text-center min-w-[220px]"
+                  className="bg-lime-400 text-slate-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors block text-center min-w-[200px] max-w-[280px] mx-auto"
                 >
                   Start Your Project
                 </Link>
@@ -295,11 +295,11 @@ const Home = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto flex-shrink-0"
               >
                 <Link
                   to="/portfolio"
-                  className="border border-slate-600 text-white px-10 py-5 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors w-full text-center min-w-[220px]"
+                  className="border border-slate-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors block text-center min-w-[200px] max-w-[280px] mx-auto"
                 >
                   View Portfolio
                 </Link>
