@@ -44,10 +44,10 @@ export const AnimatedTestimonials = ({
   };
 
   return (
-    <div className="mx-auto max-w-sm px-4 py-12 md:max-w-4xl md:px-8 lg:px-12 lg:py-20">
+    <div className="mx-auto max-w-sm px-4 py-12 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12 lg:py-20">
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
         <div>
-          <div className="relative h-80 w-full bg-white/5 border border-white/10">
+          <div className="relative h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
@@ -86,7 +86,7 @@ export const AnimatedTestimonials = ({
                     width={500}
                     height={500}
                     draggable={false}
-                    className="h-full w-full object-cover object-center"
+                    className="h-full w-full rounded-3xl object-cover object-center"
                   />
                 </motion.div>
               ))}
@@ -148,15 +148,15 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="group/button flex h-12 w-12 items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              className="group/button flex h-12 w-12 items-center justify-center rounded-full bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-300"
             >
-              <ChevronLeft className="h-5 w-5 text-lime-400" />
+              <ChevronLeft className="h-5 w-5 text-lime-400 transition-transform duration-300 group-hover/button:rotate-12" />
             </button>
             <button
               onClick={handleNext}
-              className="group/button flex h-12 w-12 items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              className="group/button flex h-12 w-12 items-center justify-center rounded-full bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-300"
             >
-              <ChevronRight className="h-5 w-5 text-lime-400" />
+              <ChevronRight className="h-5 w-5 text-lime-400 transition-transform duration-300 group-hover/button:-rotate-12" />
             </button>
           </div>
         </div>
