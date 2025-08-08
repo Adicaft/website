@@ -164,8 +164,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      whileHover={{ scale: 1.01 }}
+      transition={{ duration: 0.3, delay: index * 0.02 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}
@@ -173,7 +172,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
       className="relative group cursor-pointer"
     >
       {/* Ambient Glow */}
-      <div className={`absolute -inset-1 lg:-inset-2 bg-gradient-to-r from-lime-400/10 via-purple-500/10 to-pink-500/10 rounded-2xl lg:rounded-3xl blur-lg transition-all duration-300 ${isHovered ? 'opacity-60 scale-105' : 'opacity-30 scale-100'}`} />
+      <div className={`absolute -inset-1 lg:-inset-2 bg-gradient-to-r from-lime-400/5 via-purple-500/5 to-pink-500/5 rounded-2xl lg:rounded-3xl transition-opacity duration-200 ${isHovered ? 'opacity-40' : 'opacity-20'}`} />
       
       {/* Main Container */}
       <div className="relative bg-slate-900 rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl border border-slate-700/30">
@@ -212,7 +211,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
           {/* Play Overlay */}
           {!isPlaying && !isLoading && canPlay && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20 z-10">
-              <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/20 rounded-full flex items-center justify-center">
                 <Play className="text-white ml-1" size={20} />
               </div>
             </div>
@@ -221,7 +220,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
           {/* Sound Toggle */}
           <button
             onClick={toggleMute}
-            className="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center z-20"
+            className="absolute top-3 right-3 w-8 h-8 bg-black/50 rounded-full flex items-center justify-center z-20"
           >
             {isMuted ? (
               <VolumeX className="text-white" size={14} />
@@ -233,29 +232,25 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
 
         {/* Right Side Actions */}
         <div className="absolute right-2 sm:right-3 lg:right-4 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col space-y-2 sm:space-y-3 lg:space-y-4">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={handleLike}
             className="flex flex-col items-center space-y-1"
           >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center">
               <Heart className="text-white" size={14} />
             </div>
             <span className="text-white text-xs font-semibold">{likes.toLocaleString()}</span>
-          </motion.button>
+          </button>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={handleShare}
             className="flex flex-col items-center space-y-1"
           >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center">
               <Share2 className="text-white" size={14} />
             </div>
             <span className="text-white text-xs font-semibold">{shares}</span>
-          </motion.button>
+          </button>
         </div>
 
         {/* Bottom Caption */}

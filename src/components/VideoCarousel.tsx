@@ -176,9 +176,8 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   return (
     <motion.div
       className={`relative flex-shrink-0 w-64 h-[480px] lg:w-80 lg:h-[600px] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-200 ${
-        isActive ? 'scale-105 shadow-2xl ring-2 ring-lime-400' : 'scale-95 opacity-70'
+        isActive ? 'scale-105 shadow-xl ring-1 ring-lime-400' : 'scale-95 opacity-70'
       }`}
-      whileHover={{ scale: isActive ? 1.08 : 0.98 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}
@@ -213,13 +212,9 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       {/* Play Button Overlay */}
       {!isPlaying && !isLoading && canPlay && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center"
-          >
+          <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
             <Play className="text-white ml-1" size={32} />
-          </motion.div>
+          </div>
         </div>
       )}
 
@@ -235,7 +230,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
         {/* Sound Toggle */}
         <button
           onClick={toggleMute}
-          className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center"
+          className="w-10 h-10 bg-black/50 rounded-full flex items-center justify-center"
         >
           {isMuted ? (
             <VolumeX className="text-white" size={16} />
@@ -249,69 +244,38 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       <div className="absolute right-2 sm:right-3 lg:right-4 bottom-24 sm:bottom-28 lg:bottom-32 z-20 flex flex-col space-y-3 sm:space-y-4 lg:space-y-6">
         {/* Like Button with Hearts Animation */}
         <div className="relative">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={handleLike}
             className="flex flex-col items-center space-y-1"
           >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 rounded-full flex items-center justify-center">
               <Heart className="text-red-500 fill-red-500" size={18} />
             </div>
             <span className="text-white text-xs sm:text-sm font-semibold">{likes.toLocaleString()}</span>
-          </motion.button>
-          
-          {/* Flying Hearts Animation */}
-          <AnimatePresence>
-            {showHearts && (
-              <>
-                {[...Array(5)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 1, y: 0, x: 0, scale: 0 }}
-                    animate={{ 
-                      opacity: 0, 
-                      y: -100, 
-                      x: Math.random() * 40 - 20,
-                      scale: [0, 1, 0]
-                    }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 2, delay: i * 0.1 }}
-                    className="absolute top-0 left-1/2 transform -translate-x-1/2 pointer-events-none"
-                  >
-                    <Heart className="text-red-500 fill-red-500" size={16} />
-                  </motion.div>
-                ))}
-              </>
-            )}
-          </AnimatePresence>
+          </button>
         </div>
 
         {/* Comment Button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button
           onClick={handleComment}
           className="flex flex-col items-center space-y-1"
         >
-          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 rounded-full flex items-center justify-center">
             <MessageCircle className="text-white" size={18} />
           </div>
           <span className="text-white text-xs sm:text-sm font-semibold">{comments}</span>
-        </motion.button>
+        </button>
 
         {/* Share Button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button
           onClick={handleShare}
           className="flex flex-col items-center space-y-1"
         >
-          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/10 rounded-full flex items-center justify-center">
             <Share2 className="text-white" size={18} />
           </div>
           <span className="text-white text-xs sm:text-sm font-semibold">{shares}</span>
-        </motion.button>
+        </button>
       </div>
       
       {/* Bottom Content */}
@@ -355,30 +319,28 @@ const VideoCarousel = () => {
   return (
     <div className="relative w-full">
       {/* Navigation Buttons */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <button
         onClick={prevSlide}
         className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-12 lg:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
       >
         <ChevronLeft size={14} className="lg:w-5 lg:h-5" />
-      </motion.button>
+      </button>
       
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <button
         onClick={nextSlide}
         className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-12 lg:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
       >
         <ChevronRight size={14} className="lg:w-5 lg:h-5" />
-      </motion.button>
+      </button>
 
       {/* Video Cards Container */}
       <div className="overflow-hidden px-12 lg:px-20">
-        <motion.div
+        <div
           className="flex gap-8 justify-center items-center"
-          animate={{ x: -currentIndex * (window.innerWidth < 1024 ? 288 : 352) }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          style={{ 
+            transform: `translateX(${-currentIndex * (window.innerWidth < 1024 ? 288 : 352)}px)`,
+            transition: 'transform 0.3s ease-out'
+          }}
         >
           {videos.map((video, index) => (
             <VideoCard
@@ -391,7 +353,7 @@ const VideoCarousel = () => {
               videoUrl={videoUrls[index % videoUrls.length]}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Dots Indicator */}

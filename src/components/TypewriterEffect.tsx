@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 interface TypewriterEffectProps {
   words: string[];
@@ -53,13 +52,9 @@ const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
   return (
     <span className={className}>
       {currentText}
-      <motion.span
-        animate={{ opacity: [1, 0, 1] }}
-        transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-        className="text-lime-400"
-      >
+      <span className="text-lime-400 animate-pulse">
         |
-      </motion.span>
+      </span>
     </span>
   );
 };
