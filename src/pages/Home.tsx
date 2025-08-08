@@ -84,7 +84,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 lg:p-6"
+                className="text-center bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 lg:p-6"
               >
                 <stat.icon className={`${stat.color} mx-auto mb-3`} size={32} />
                 <div className="text-2xl lg:text-3xl font-bold text-white mb-2">
@@ -201,14 +201,13 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-6 lg:p-8 text-center hover:bg-slate-800/70 transition-all duration-300"
+                className="bg-slate-800/50 border border-slate-700/50 rounded-3xl p-6 lg:p-8 text-center hover:bg-slate-800/70 transition-colors duration-200"
               >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                <div
                   className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl mb-4 lg:mb-6`}
                 >
                   <service.icon className="text-white" size={28} />
-                </motion.div>
+                </div>
                 <h3 className="text-xl lg:text-2xl font-semibold text-white mb-3 lg:mb-4">
                   {service.title}
                 </h3>
@@ -266,12 +265,7 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-12 lg:py-20 bg-gradient-to-r from-lime-400/10 to-purple-500/10">
         <div className="max-w-4xl mx-auto px-4 lg:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="bg-slate-800/50 backdrop-blur-xl border border-lime-400/30 rounded-3xl p-6 lg:p-12"
-          >
+          <div className="bg-slate-800/50 border border-lime-400/30 rounded-3xl p-6 lg:p-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-4 lg:mb-6">
               Ready to Create Something Amazing?
             </h2>
@@ -280,32 +274,24 @@ const Home = () => {
               Get in touch today to discuss your project.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto flex-shrink-0"
-              >
+              <div className="w-full sm:w-auto flex-shrink-0">
                 <Link
                   to="/contact"
                   className="bg-lime-400 text-slate-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-lime-300 transition-colors block text-center min-w-[200px] max-w-[280px] mx-auto"
                 >
                   Start Your Project
                 </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto flex-shrink-0"
-              >
+              </div>
+              <div className="w-full sm:w-auto flex-shrink-0">
                 <Link
                   to="/portfolio"
                   className="border border-slate-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-slate-800 transition-colors block text-center min-w-[200px] max-w-[280px] mx-auto"
                 >
                   View Portfolio
                 </Link>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>
