@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play, Heart, Share2, Volume2, VolumeX, MessageCircle } from 'lucide-react';
 
 interface VideoCardProps {
@@ -31,6 +31,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   const [comments, setComments] = useState(Math.floor(Math.random() * 100) + 20);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -54,8 +55,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
       setHasError(false);
     };
 
-    const handleError = (e: any) => {
-      console.log('Video error:', e);
+    const handleError = () => {
       setIsLoading(false);
       setCanPlay(false);
       setHasError(true);
@@ -78,11 +78,11 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('playsinline', 'true');
     video.setAttribute('x-webkit-airplay', 'allow');
-    video.preload = 'metadata';
+    video.preload = 'auto';
     video.controls = false;
     video.crossOrigin = 'anonymous';
 
-    // Force load
+    // Force load for mobile
     video.load();
 
     return () => {
@@ -96,10 +96,10 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
   const playVideo = async () => {
     const video = videoRef.current;
-    if (!video || !isActive || !canPlay || hasError) return;
+    if (!video || !canPlay || hasError) return;
 
     try {
-      // Ensure video is ready
+      // Ensure video is ready for mobile
       if (video.readyState < 2) {
         await new Promise((resolve) => {
           const onCanPlay = () => {
@@ -110,7 +110,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
         });
       }
 
-      // Force muted for mobile autoplay
+      // Always start muted for autoplay
       video.muted = true;
       
       const playPromise = video.play();
@@ -121,38 +121,39 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
     } catch (error) {
       console.log("Video play failed:", error);
       setIsPlaying(false);
-      
-      // Retry with user interaction
-      setTimeout(() => {
-        if (video && !video.paused) {
-          setIsPlaying(true);
-        }
-      }, 100);
     }
   };
 
   const pauseVideo = () => {
     const video = videoRef.current;
     if (!video) return;
-
     video.pause();
     setIsPlaying(false);
   };
 
+  // Auto-play when active and ready
   useEffect(() => {
-    if (isActive && (isHovered || window.innerWidth <= 768) && canPlay && !isLoading && !hasError) {
+    if (isActive && canPlay && !isLoading && !hasError) {
       playVideo();
     } else {
       pauseVideo();
     }
-  }, [isActive, isHovered, canPlay, isLoading, hasError]);
+  }, [isActive, canPlay, isLoading, hasError]);
+
+  // Handle hover for desktop
+  useEffect(() => {
+    if (isHovered && isActive && canPlay && !isLoading && !hasError) {
+      playVideo();
+    }
+  }, [isHovered, isActive, canPlay, isLoading, hasError]);
 
   const handleVideoClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    setHasUserInteracted(true);
     
     const video = videoRef.current;
-    if (!video || !isActive || !canPlay || hasError) return;
+    if (!video || !canPlay || hasError) return;
 
     if (video.paused) {
       await playVideo();
@@ -164,6 +165,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   const toggleMute = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    setHasUserInteracted(true);
     
     const video = videoRef.current;
     if (!video) return;
@@ -189,6 +191,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
   // Mobile touch handlers
   const handleTouchStart = (e: React.TouchEvent) => {
+    setHasUserInteracted(true);
     if (isActive) {
       setIsHovered(true);
     }
@@ -196,17 +199,12 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (isActive) {
-      // Keep playing for mobile
-      setTimeout(() => {
-        if (isActive) {
-          setIsHovered(false);
-        }
-      }, 3000);
+      setTimeout(() => setIsHovered(false), 2000);
     }
   };
 
   return (
-    <motion.div
+    <div
       className={`relative flex-shrink-0 w-64 h-[480px] lg:w-80 lg:h-[600px] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-200 ${
         isActive ? 'scale-105 ring-2 ring-lime-400' : 'scale-95 opacity-70'
       }`}
@@ -243,7 +241,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
         playsInline
         webkit-playsinline="true"
         x-webkit-airplay="allow"
-        preload="metadata"
+        preload="auto"
         controls={false}
         crossOrigin="anonymous"
         style={{ pointerEvents: 'none' }}
@@ -328,7 +326,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
           <span className="text-lime-400">#Adityakeyedits</span>
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -348,24 +346,13 @@ const VideoCarousel = () => {
 
   const totalVideos = videos.length;
 
-  // Create infinite loop by duplicating videos
-  const extendedVideos = [...videos, ...videos, ...videos];
-  const startIndex = totalVideos; // Start from middle set
-
-  const [displayIndex, setDisplayIndex] = useState(startIndex);
-
   const nextSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev + 1) % totalVideos);
-    setDisplayIndex((prev) => prev + 1);
     
     setTimeout(() => {
       setIsTransitioning(false);
-      // Reset to middle when reaching end
-      if (displayIndex >= totalVideos * 2 - 1) {
-        setDisplayIndex(startIndex + currentIndex);
-      }
     }, 300);
   };
 
@@ -373,14 +360,9 @@ const VideoCarousel = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev - 1 + totalVideos) % totalVideos);
-    setDisplayIndex((prev) => prev - 1);
     
     setTimeout(() => {
       setIsTransitioning(false);
-      // Reset to middle when reaching start
-      if (displayIndex <= 0) {
-        setDisplayIndex(startIndex + currentIndex);
-      }
     }, 300);
   };
 
@@ -388,13 +370,34 @@ const VideoCarousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 4000); // Change slide every 4 seconds
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [currentIndex, isTransitioning]);
 
+  // Calculate visible videos (show 3 on desktop, 1 on mobile)
+  const getVisibleVideos = () => {
+    const isMobile = window.innerWidth < 768;
+    const visibleCount = isMobile ? 1 : 3;
+    const visibleVideos = [];
+    
+    for (let i = 0; i < visibleCount; i++) {
+      const index = (currentIndex + i) % totalVideos;
+      visibleVideos.push({
+        ...videos[index],
+        videoUrl: videoUrls[index],
+        isActive: i === Math.floor(visibleCount / 2), // Center video is active
+        displayIndex: i
+      });
+    }
+    
+    return visibleVideos;
+  };
+
+  const visibleVideos = getVisibleVideos();
+
   return (
-    <div className="relative w-full">
+    <div className="relative w-full max-w-6xl mx-auto">
       {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
@@ -412,23 +415,18 @@ const VideoCarousel = () => {
         <ChevronRight size={20} />
       </button>
 
-      {/* Video Cards Container - Fixed width to prevent empty space */}
-      <div className="w-full overflow-hidden">
-        <div
-          className={`flex gap-8 justify-center items-center transition-transform duration-300 ease-out`}
-          style={{ 
-            transform: `translateX(${-displayIndex * (window.innerWidth < 1024 ? 288 : 352)}px)`,
-          }}
-        >
-          {extendedVideos.map((video, index) => (
+      {/* Video Cards Container */}
+      <div className="w-full overflow-hidden px-16">
+        <div className="flex gap-8 justify-center items-center transition-transform duration-300 ease-out">
+          {visibleVideos.map((video, index) => (
             <VideoCard
-              key={`${video.name}-${index}`}
+              key={`${currentIndex}-${index}`}
               name={video.name}
               title={video.title}
               company={video.company}
-              isActive={Math.abs(index - displayIndex) <= 1} // Activate center and adjacent cards
+              isActive={video.isActive}
               index={index}
-              videoUrl={videoUrls[index % videoUrls.length]}
+              videoUrl={video.videoUrl}
             />
           ))}
         </div>
@@ -442,7 +440,6 @@ const VideoCarousel = () => {
             onClick={() => {
               if (!isTransitioning) {
                 setCurrentIndex(index);
-                setDisplayIndex(startIndex + index);
               }
             }}
             className={`w-2 h-2 rounded-full transition-all duration-200 ${
