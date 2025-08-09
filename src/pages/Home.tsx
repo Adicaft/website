@@ -101,9 +101,9 @@ const Home = () => {
 
       {/* Video Carousel Section */}
       <section className="py-12 lg:py-20 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="w-full">
           {/* Client Communication Box */}
-          <div className="bg-gradient-to-r from-lime-400/10 to-emerald-400/10 border border-lime-400/30 rounded-2xl p-4 mb-12 max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-lime-400/10 to-emerald-400/10 border border-lime-400/30 rounded-2xl p-4 mb-12 max-w-4xl mx-auto px-4 lg:px-6">
             <div className="flex items-start space-x-3">
               <div className="w-8 h-8 bg-lime-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                 <span className="text-slate-900 font-bold text-sm">🎬</span>
@@ -123,7 +123,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12 lg:mb-16"
+            className="text-center mb-12 lg:mb-16 px-4 lg:px-6"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-white mb-4 lg:mb-6">
               Featured{' '}
@@ -140,7 +140,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mt-12"
+            className="text-center mt-12 px-4 lg:px-6"
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
