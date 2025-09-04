@@ -38,34 +38,10 @@ const Home = () => {
 
   const testimonials = [
     {
-      quote: "We have been working with Aditya for the last 6 months and he is incredibly talented! They brought my vision to life with their expert editing skills. Their attention to detail, creativity, and professionalism made the entire process seamless. I'm beyond thrilled with the final result, it's truly stunning. I highly recommend Aditya to anyone looking for top-notch video editing services!",
-      name: "Sarah Johnson", 
-      designation: "Content Creator & YouTuber",
-      src: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote: "The VFX work exceeded our expectations. Professional, creative, and delivered on time. Aditya's technical skills combined with artistic vision make him a standout in the industry.",
-      name: "Mike Chen",
-      designation: "Brand Manager at TechFlow",
+      quote: "We have been working with Aditya for the last 6 months and he is incredibly talented! They brought my vision to life with their expert editing skills. Their attention to detail, creativity, and professionalism made the entire process seamless. I'm beyond thrilled with the final result, it's truly stunning. I highly recommend Aditya to anyone looking for top-notch video editing services! Thank you",
+      name: "Mr. Tushar", 
+      designation: "Business Owner",
       src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote: "Working with Aditya has elevated my content quality significantly. His understanding of storytelling through visual effects is remarkable. Highly recommended for any creative project!",
-      name: "Lisa Rodriguez",
-      designation: "Digital Marketing Director",
-      src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote: "Outstanding support and robust creative solutions. It's rare to find an artist who delivers on all promises while maintaining such high quality standards throughout the project.",
-      name: "James Kim",
-      designation: "Creative Director at InnovateSphere",
-      src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote: "The scalability and performance of Aditya's work have been game-changing for our organization. His ability to handle complex projects while maintaining creativity is impressive.",
-      name: "Emily Watson",
-      designation: "VP of Creative at FutureNet",
-      src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
