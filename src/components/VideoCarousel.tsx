@@ -333,6 +333,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 const VideoCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   const videos = [
     { name: "Aditya Soni", title: "VFX Artist", company: "Adityakeyedits" },
@@ -368,12 +369,14 @@ const VideoCarousel = () => {
 
   // Auto-play functionality
   useEffect(() => {
+    if (isHovered) return; // Don't auto-scroll when hovered
+    
     const interval = setInterval(() => {
       nextSlide();
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [currentIndex, isTransitioning]);
+  }, [currentIndex, isTransitioning, isHovered]);
 
   // Calculate visible videos (show 3 on desktop, 1 on mobile)
   const getVisibleVideos = () => {
@@ -397,7 +400,11 @@ const VideoCarousel = () => {
   const visibleVideos = getVisibleVideos();
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto">
+    <div 
+      className="relative w-full max-w-6xl mx-auto"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
