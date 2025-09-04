@@ -38,8 +38,8 @@ const Home = () => {
 
   const testimonials = [
     {
-      quote: "Aditya transformed my raw footage into a cinematic masterpiece. His attention to detail and creative vision exceeded all my expectations. The final result was absolutely stunning!",
-      name: "Sarah Johnson",
+      quote: "We have been working with Aditya for the last 6 months and he is incredibly talented! They brought my vision to life with their expert editing skills. Their attention to detail, creativity, and professionalism made the entire process seamless. I'm beyond thrilled with the final result, it's truly stunning. I highly recommend Aditya to anyone looking for top-notch video editing services!",
+      name: "Sarah Johnson", 
       designation: "Content Creator & YouTuber",
       src: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
