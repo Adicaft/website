@@ -45,7 +45,7 @@ const Home = () => {
     },
     {
       quote: "Aditya's creative vision and technical expertise transformed our brand videos completely. His understanding of our audience and ability to create engaging content has significantly boosted our social media presence. The quality of work and timely delivery exceeded our expectations!",
-      name: "Priya Sharma",
+      name: "Blossom Coelho",
       designation: "Content Creator & Influencer", 
       src: "/priya-sharma.jpg",
     },
