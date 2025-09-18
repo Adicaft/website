@@ -32,6 +32,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
+  const [shouldAutoPlay, setShouldAutoPlay] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -133,24 +134,28 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
 
   // Auto-play when active and ready
   useEffect(() => {
-    if (isActive && canPlay && !isLoading && !hasError) {
+    if (isActive && canPlay && !isLoading && !hasError && shouldAutoPlay) {
       playVideo();
-    } else {
+    } else if (!isActive || !shouldAutoPlay) {
       pauseVideo();
     }
-  }, [isActive, canPlay, isLoading, hasError]);
+  }, [isActive, canPlay, isLoading, hasError, shouldAutoPlay]);
 
   // Handle hover for desktop
   useEffect(() => {
-    if (isHovered && isActive && canPlay && !isLoading && !hasError) {
+    if (isHovered && isActive && canPlay && !isLoading && !hasError && shouldAutoPlay) {
       playVideo();
+    } else if (isHovered && isActive) {
+      // Stop auto-play when hovered
+      setShouldAutoPlay(false);
     }
-  }, [isHovered, isActive, canPlay, isLoading, hasError]);
+  }, [isHovered, isActive, canPlay, isLoading, hasError, shouldAutoPlay]);
 
   const handleVideoClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setHasUserInteracted(true);
+    setShouldAutoPlay(false); // Stop auto-play when user clicks
     
     const video = videoRef.current;
     if (!video || !canPlay || hasError) return;
@@ -192,15 +197,14 @@ const VideoCard: React.FC<VideoCardProps> = ({ name, title, company, isActive, i
   // Mobile touch handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     setHasUserInteracted(true);
+    setShouldAutoPlay(false); // Stop auto-play on touch
     if (isActive) {
       setIsHovered(true);
     }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (isActive) {
-      setTimeout(() => setIsHovered(false), 2000);
-    }
+    // Keep the video playing when touched
   };
 
   return (

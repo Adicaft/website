@@ -41,7 +41,25 @@ const Home = () => {
       quote: "We have been working with Aditya for the last 6 months and he is incredibly talented! They brought my vision to life with their expert editing skills. Their attention to detail, creativity, and professionalism made the entire process seamless. I'm beyond thrilled with the final result, it's truly stunning. I highly recommend Aditya to anyone looking for top-notch video editing services! Thank you",
       name: "Mr. Tushar", 
       designation: "Business Owner",
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "/Tushar.png",
+    },
+    {
+      quote: "Aditya's creative vision and technical expertise transformed our brand videos completely. His understanding of our audience and ability to create engaging content has significantly boosted our social media presence. The quality of work and timely delivery exceeded our expectations!",
+      name: "Priya Sharma",
+      designation: "Content Creator & Influencer", 
+      src: "/priya-sharma.jpg",
+    },
+    {
+      quote: "Working with Aditya has been a game-changer for our marketing campaigns. His innovative approach to video editing and VFX has helped us create content that truly stands out. Professional, reliable, and incredibly talented!",
+      name: "360 Thinkers Team",
+      designation: "Digital Marketing Agency",
+      src: "/360-thinkers.jpg",
+    },
+    {
+      quote: "Aditya brought our comedy content to life with his amazing editing skills! His understanding of timing, transitions, and visual effects made our videos go viral. Highly recommend for any creative project!",
+      name: "Desi Joke Jar",
+      designation: "Entertainment Channel",
+      src: "/desi-joke-jar.jpg",
     },
   ];
 

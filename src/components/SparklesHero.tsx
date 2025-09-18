@@ -6,9 +6,9 @@ import TypewriterEffect from "./TypewriterEffect";
 
 const SparklesHero = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Simple gradient background - no particles */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 via-slate-800/30 to-slate-900/50"></div>
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+      {/* Minimal background */}
+      <div className="absolute inset-0 bg-slate-900"></div>
 
       {/* Main Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 lg:px-6">

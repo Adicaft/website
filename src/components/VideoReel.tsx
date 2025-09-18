@@ -20,11 +20,12 @@ const videoUrls = [
 const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
   const [isLoading, setIsLoading] = useState(true);
   const [canPlay, setCanPlay] = useState(false);
+  const [shouldAutoPlay, setShouldAutoPlay] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const videoUrl = videoUrls[index % videoUrls.length];
@@ -59,7 +60,7 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     video.addEventListener('error', handleError);
 
     // Mobile-specific setup
-    video.muted = true;
+    video.muted = false;
     video.playsInline = true;
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('playsinline', 'true');
@@ -79,8 +80,8 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
     if (!video || !canPlay) return;
 
     try {
-      // Ensure video is muted for mobile autoplay
-      video.muted = true;
+      // Start with sound by default
+      video.muted = isMuted;
       
       // For mobile compatibility
       if (video.readyState < 3) {
@@ -115,12 +116,12 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
 
   // Handle hover/touch for desktop and mobile
   useEffect(() => {
-    if (isHovered && canPlay && !isLoading) {
+    if (isHovered && canPlay && !isLoading && shouldAutoPlay) {
       playVideo();
-    } else {
+    } else if (!isHovered && shouldAutoPlay) {
       pauseVideo();
     }
-  }, [isHovered, canPlay, isLoading]);
+  }, [isHovered, canPlay, isLoading, shouldAutoPlay]);
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -133,6 +134,8 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
   const handleVideoClick = async () => {
     const video = videoRef.current;
     if (!video || !canPlay) return;
+
+    setShouldAutoPlay(false); // Stop auto-play when user interacts
 
     if (video.paused) {
       await playVideo();
@@ -153,11 +156,12 @@ const VideoReel: React.FC<VideoReelProps> = ({ index, enableSound = false }) => 
 
   // Mobile touch handlers
   const handleTouchStart = () => {
+    setShouldAutoPlay(false); // Stop auto-play on touch
     setIsHovered(true);
   };
 
   const handleTouchEnd = () => {
-    setTimeout(() => setIsHovered(false), 3000); // Keep playing for 3 seconds on mobile
+    // Keep playing when touched
   };
 
   return (
