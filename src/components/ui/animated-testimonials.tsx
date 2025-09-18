@@ -49,9 +49,13 @@ export const AnimatedTestimonials = ({
         <div>
           <div className="relative h-80 w-full">
             <div className="flex items-center justify-center h-full">
-              <div className="w-48 h-48 bg-gradient-to-br from-lime-400 to-purple-500 rounded-3xl flex items-center justify-center">
-                <div className="w-40 h-40 bg-slate-800 rounded-2xl flex items-center justify-center">
-                  <span className="text-6xl">👨‍💼</span>
+              <div className="w-48 h-48 bg-gradient-to-br from-lime-400 to-purple-500 rounded-3xl p-1">
+                <div className="w-full h-full rounded-3xl overflow-hidden">
+                  <img 
+                    src="/Tushar.png" 
+                    alt="Mr. Tushar"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
