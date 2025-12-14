@@ -38,12 +38,18 @@ const About = () => {
               className="text-center lg:text-left"
             >
               <div className="relative inline-block mb-8">
-                <div className="w-64 h-64 lg:w-80 lg:h-80 mx-auto rounded-3xl bg-gradient-to-br from-lime-400/20 to-purple-500/20 p-1">
-                  <div className="w-full h-full rounded-3xl bg-slate-800 flex items-center justify-center">
-                    <span className="text-6xl lg:text-8xl">🎭</span>
+                <div className="w-64 h-64 lg:w-80 lg:h-80 mx-auto rounded-3xl bg-gradient-to-br from-lime-400/20 to-purple-500/20 p-1 relative">
+                  <div className="w-full h-full rounded-3xl overflow-hidden relative">
+                    <img
+                      src="/about/profile.jpg"
+                      alt="Aditya Soni"
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Vignette for profile image */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none" />
                   </div>
                 </div>
-                <div className="absolute -bottom-4 -right-4 bg-lime-400 text-slate-900 px-4 py-2 rounded-full font-semibold text-sm lg:text-base">
+                <div className="absolute -bottom-4 -right-4 bg-lime-400 text-slate-900 px-4 py-2 rounded-full font-semibold text-sm lg:text-base z-10">
                   VFX Artist
                 </div>
               </div>
