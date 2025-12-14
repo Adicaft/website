@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Play, Award, Users, ArrowRight, Zap, Eye, Clock } from 'lucide-react';
+import { Play, Award, Users, Star, ArrowRight, Zap, Eye, Clock } from 'lucide-react';
+import VideoReel from '../components/VideoReel';
 import VideoCarousel from '../components/VideoCarousel';
 import SparklesHero from '../components/SparklesHero';
 import { AnimatedTestimonials } from '../components/ui/animated-testimonials';

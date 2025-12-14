@@ -1,6 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   motion,
   AnimatePresence,
@@ -123,12 +124,12 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       )}
     >
       {items.map((item, idx) => (
-        <a
+        <Link
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
           className="relative px-4 py-2 text-slate-300 hover:text-lime-400 transition-colors"
           key={`link-${idx}`}
-          href={item.link}
+          to={item.link}
         >
           {hovered === idx && (
             <motion.div
@@ -137,7 +138,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             />
           )}
           <span className="relative z-20">{item.name}</span>
-        </a>
+        </Link>
       ))}
     </motion.div>
   );
@@ -230,8 +231,8 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
-      href="/"
+    <Link
+      to="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1"
     >
       <img
@@ -239,7 +240,7 @@ export const NavbarLogo = () => {
         alt="Adityakeyedits"
         className="h-12 w-auto object-contain"
       />
-    </a>
+    </Link>
   );
 };
 
@@ -267,6 +268,18 @@ export const NavbarButton = ({
     primary: "bg-lime-400 text-slate-900 hover:bg-lime-300",
     secondary: "bg-transparent border border-slate-600 text-white hover:bg-slate-800",
   };
+
+  if (href && !href.startsWith('http') && !href.startsWith('#')) {
+    return (
+      <Link
+        to={href}
+        className={cn(baseStyles, variantStyles[variant], className)}
+        {...(props as any)}
+      >
+        {children}
+      </Link>
+    );
+  }
 
   return (
     <Tag

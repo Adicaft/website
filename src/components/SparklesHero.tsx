@@ -7,6 +7,9 @@ import TypewriterEffect from "./TypewriterEffect";
 const SparklesHero = () => {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+      {/* Minimal background */}
+      <div className="absolute inset-0 bg-slate-900"></div>
+
       {/* Main Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 lg:px-6">
         <motion.div

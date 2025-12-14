@@ -43,9 +43,9 @@ const skillCategories = [
 
 const softwareLogos = [
   { name: 'Premiere Pro', logo: '/adobe-premiere-logo-png_seeklogo-380789.png', proficiency: 95 },
-  { name: 'After Effects', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/assets/skill-1.png', proficiency: 90 },
+  { name: 'After Effects', logo: '🎭', proficiency: 90 },
   { name: 'DaVinci Resolve', logo: '/nuke.webp', proficiency: 85 },
-  { name: 'Photoshop', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/assets/skill-2.png', proficiency: 88 },
+  { name: 'Photoshop', logo: '🖼️', proficiency: 88 },
   { name: 'Illustrator', logo: '/Illustrator-Logo-768x480.png', proficiency: 80 },
   { name: 'Nuke', logo: '/nuke.webp', proficiency: 75 },
   { name: 'Maya', logo: '/maya.webp', proficiency: 70 },
