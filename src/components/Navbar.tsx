@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <ResizableNavbar>
       {/* Desktop Navigation */}
-      <NavBody>
+      <NavBody transparentOnTop={location.pathname === '/'}>
         <NavbarLogo />
         <NavItems items={navItems} />
         <div className="flex items-center gap-4">
@@ -57,9 +57,8 @@ const Navbar = () => {
               key={`mobile-link-${idx}`}
               to={item.link}
               onClick={() => setIsMobileMenuOpen(false)}
-              className={`relative text-slate-300 hover:text-lime-400 transition-colors py-2 ${
-                location.pathname === item.link ? 'text-lime-400' : ''
-              }`}
+              className={`relative text-slate-300 hover:text-lime-400 transition-colors py-2 ${location.pathname === item.link ? 'text-lime-400' : ''
+                }`}
             >
               <span className="block">{item.name}</span>
             </Link>

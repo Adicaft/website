@@ -16,11 +16,7 @@ interface NavbarProps {
   className?: string;
 }
 
-interface NavBodyProps {
-  children: React.ReactNode;
-  className?: string;
-  visible?: boolean;
-}
+
 
 interface NavItemsProps {
   items: {
@@ -82,7 +78,14 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   );
 };
 
-export const NavBody = ({ children, className, visible }: NavBodyProps) => {
+interface NavBodyProps {
+  children: React.ReactNode;
+  className?: string;
+  visible?: boolean;
+  transparentOnTop?: boolean;
+}
+
+export const NavBody = ({ children, className, visible, transparentOnTop }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
@@ -102,8 +105,12 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "320px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-2xl bg-slate-800/70 px-4 py-3 lg:flex",
-        visible && "bg-slate-800/70 border border-slate-700/50 backdrop-blur-xl",
+        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-2xl px-4 py-3 lg:flex",
+        visible
+          ? "bg-slate-800/70 border border-slate-700/50 backdrop-blur-xl"
+          : transparentOnTop
+            ? "bg-transparent border-transparent"
+            : "bg-slate-800/70",
         className,
       )}
     >
