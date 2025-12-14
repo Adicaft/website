@@ -23,7 +23,7 @@ const CinematicHero = () => {
                 <img
                     src="/cinematic-hero.png"
                     alt="Cinematic Workspace"
-                    className="w-full h-full object-cover object-[center_30%]"
+                    className="w-full h-full object-cover object-[center_15%]"
                 />
             </motion.div>
 
@@ -31,10 +31,10 @@ const CinematicHero = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_60%,rgba(0,0,0,0.9)_100%)] pointer-events-none" />
 
             {/* Top Blend */}
-            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none" />
 
             {/* Content */}
-            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 pb-20">
+            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 pb-40">
                 <motion.h1
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
