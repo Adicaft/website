@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <ResizableNavbar>
       {/* Desktop Navigation */}
-      <NavBody transparentOnTop={location.pathname === '/'}>
+      <NavBody>
         <NavbarLogo />
         <NavItems items={navItems} />
         <div className="flex items-center gap-4">

@@ -23,7 +23,7 @@ const CinematicHero = () => {
                 <img
                     src="/cinematic-hero.png"
                     alt="Cinematic Workspace"
-                    className="w-full h-full object-cover object-[center_15%]"
+                    className="w-full h-full object-cover object-[center_25%]"
                 />
             </motion.div>
 
@@ -34,7 +34,7 @@ const CinematicHero = () => {
             <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none" />
 
             {/* Content */}
-            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 pb-40">
+            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 pb-56">
                 <motion.h1
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}

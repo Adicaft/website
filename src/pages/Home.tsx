@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Play, Award, Users, Star, ArrowRight, Zap, Eye, Clock } from 'lucide-react';
 import VideoReel from '../components/VideoReel';
 import VideoCarousel from '../components/VideoCarousel';
-import SparklesHero from '../components/SparklesHero';
+import CinematicHero from '../components/CinematicHero';
 import { AnimatedTestimonials } from '../components/ui/animated-testimonials';
 
 const Home = () => {
@@ -64,9 +64,9 @@ const Home = () => {
   ];
 
   return (
-    <div className="pt-20">
+    <div className="pt-20 bg-black">
       {/* Hero Section */}
-      <SparklesHero />
+      <CinematicHero />
 
       {/* Stats Section */}
       <section className="py-12 lg:py-20 bg-slate-800/50">
