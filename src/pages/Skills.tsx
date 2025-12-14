@@ -43,9 +43,9 @@ const skillCategories = [
 
 const softwareLogos = [
   { name: 'Premiere Pro', logo: '/adobe-premiere-logo-png_seeklogo-380789.png', proficiency: 95 },
-  { name: 'After Effects', logo: '🎭', proficiency: 90 },
+  { name: 'After Effects', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/assets/skill-1.png', proficiency: 90 },
   { name: 'DaVinci Resolve', logo: '/nuke.webp', proficiency: 85 },
-  { name: 'Photoshop', logo: '🖼️', proficiency: 88 },
+  { name: 'Photoshop', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/assets/skill-2.png', proficiency: 88 },
   { name: 'Illustrator', logo: '/Illustrator-Logo-768x480.png', proficiency: 80 },
   { name: 'Nuke', logo: '/nuke.webp', proficiency: 75 },
   { name: 'Maya', logo: '/maya.webp', proficiency: 70 },
@@ -89,11 +89,11 @@ const Skills = () => {
                 >
                   <category.icon className="text-white" size={28} />
                 </motion.div>
-                
+
                 <h3 className="text-xl lg:text-2xl font-semibold text-white mb-4">
                   {category.title}
                 </h3>
-                
+
                 <div className="space-y-2">
                   {category.skills.map((skill, skillIndex) => (
                     <div key={skillIndex} className="flex items-center space-x-2">
@@ -122,8 +122,8 @@ const Skills = () => {
                 <div>
                   <h4 className="text-blue-400 font-semibold mb-2">Industry Insight</h4>
                   <p className="text-slate-300 text-sm leading-relaxed">
-                    "Mastering these tools is just the beginning. The real skill lies in knowing which tool 
-                    to use for each creative challenge. I've spent countless hours perfecting workflows 
+                    "Mastering these tools is just the beginning. The real skill lies in knowing which tool
+                    to use for each creative challenge. I've spent countless hours perfecting workflows
                     that deliver professional results efficiently."
                   </p>
                 </div>
@@ -133,7 +133,7 @@ const Skills = () => {
             <h3 className="text-2xl lg:text-3xl font-semibold text-white mb-8 text-center">
               Software Proficiency
             </h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {softwareLogos.map((software, index) => (
                 <motion.div
@@ -145,8 +145,8 @@ const Skills = () => {
                 >
                   <div className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center">
                     {software.logo.startsWith('/') ? (
-                      <img 
-                        src={software.logo} 
+                      <img
+                        src={software.logo}
                         alt={software.name}
                         className="w-full h-full object-contain"
                       />
@@ -183,8 +183,8 @@ const Skills = () => {
                 <div>
                   <h4 className="text-orange-400 font-semibold mb-2">Continuous Learning</h4>
                   <p className="text-slate-300 text-sm leading-relaxed">
-                    "The VFX industry evolves rapidly. I dedicate time weekly to learning new techniques, 
-                    exploring emerging tools, and staying updated with industry trends. This ensures 
+                    "The VFX industry evolves rapidly. I dedicate time weekly to learning new techniques,
+                    exploring emerging tools, and staying updated with industry trends. This ensures
                     your projects always feature cutting-edge techniques."
                   </p>
                 </div>
