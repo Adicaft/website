@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Play, Award, Users, Star, ArrowRight, Zap, Eye, Clock } from 'lucide-react';
-import VideoReel from '../components/VideoReel';
+import { Play, Award, Users, ArrowRight, Zap, Eye, Clock } from 'lucide-react';
 import VideoCarousel from '../components/VideoCarousel';
 import SparklesHero from '../components/SparklesHero';
 import { AnimatedTestimonials } from '../components/ui/animated-testimonials';
@@ -39,14 +38,14 @@ const Home = () => {
   const testimonials = [
     {
       quote: "We have been working with Aditya for the last 6 months and he is incredibly talented! They brought my vision to life with their expert editing skills. Their attention to detail, creativity, and professionalism made the entire process seamless. I'm beyond thrilled with the final result, it's truly stunning. I highly recommend Aditya to anyone looking for top-notch video editing services! Thank you",
-      name: "Mr. Tushar", 
+      name: "Mr. Tushar",
       designation: "Business Owner",
       src: "/Tushar.png",
     },
     {
       quote: "Aditya's creative vision and technical expertise transformed our brand videos completely. His understanding of our audience and ability to create engaging content has significantly boosted our social media presence. The quality of work and timely delivery exceeded our expectations!",
       name: "Blossom Coelho",
-      designation: "Content Creator & Influencer", 
+      designation: "Content Creator & Influencer",
       src: "/priya-sharma.jpg",
     },
     {
@@ -105,8 +104,8 @@ const Home = () => {
               <div>
                 <h4 className="text-lime-400 font-semibold mb-2">Behind the Scenes</h4>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  "Each video you see here represents hours of meticulous work—from initial concept to final render. 
-                  I believe in showing you the process, not just the result. Transparency builds trust, and trust 
+                  "Each video you see here represents hours of meticulous work—from initial concept to final render.
+                  I believe in showing you the process, not just the result. Transparency builds trust, and trust
                   creates lasting partnerships."
                 </p>
               </div>
@@ -153,7 +152,7 @@ const Home = () => {
       </section>
 
       {/* Services Preview */}
-      <section className="py-12 lg:py-20 bg-slate-800/30">
+      <section className="py-12 lg:py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           {/* Process Insight Box */}
           <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border border-purple-400/30 rounded-2xl p-4 mb-12 max-w-4xl mx-auto">
@@ -164,8 +163,8 @@ const Home = () => {
               <div>
                 <h4 className="text-purple-400 font-semibold mb-2">My Process</h4>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  "I start every project with a detailed consultation to understand your vision. Then I create 
-                  a custom workflow that ensures quality, meets deadlines, and stays within budget. 
+                  "I start every project with a detailed consultation to understand your vision. Then I create
+                  a custom workflow that ensures quality, meets deadlines, and stays within budget.
                   Regular updates keep you in the loop throughout the entire process."
                 </p>
               </div>
@@ -264,7 +263,7 @@ const Home = () => {
               Ready to Create Something Amazing?
             </h2>
             <p className="text-base lg:text-xl text-slate-400 mb-6 lg:mb-8">
-              Let's bring your vision to life with professional video editing and VFX. 
+              Let's bring your vision to life with professional video editing and VFX.
               Get in touch today to discuss your project.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
