@@ -43,13 +43,14 @@ const skillCategories = [
 
 const softwareLogos = [
   { name: 'Premiere Pro', logo: '/adobe-premiere-logo-png_seeklogo-380789.png', proficiency: 95 },
-  { name: 'After Effects', logo: '🎭', proficiency: 90 },
-  { name: 'DaVinci Resolve', logo: '/nuke.webp', proficiency: 85 },
-  { name: 'Photoshop', logo: '🖼️', proficiency: 88 },
+  { name: 'After Effects', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/skills/after-effects.png', proficiency: 90 },
+  { name: 'DaVinci Resolve', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/skills/davinci-resolve.png', proficiency: 85 },
+  { name: 'Photoshop', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/skills/photoshop.png', proficiency: 88 },
   { name: 'Illustrator', logo: '/Illustrator-Logo-768x480.png', proficiency: 80 },
   { name: 'Nuke', logo: '/nuke.webp', proficiency: 75 },
-  { name: 'Maya', logo: '/maya.webp', proficiency: 70 },
-  { name: 'Fairlight', logo: '🎵', proficiency: 82 }
+  { name: 'Maya', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/skills/maya.png', proficiency: 70 },
+  { name: 'Audition', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/skills/audition.png', proficiency: 82 },
+  { name: 'Blender', logo: 'https://cdn.jsdelivr.net/gh/Adicaft/website@main/public/skills/blender.png', proficiency: 75 }
 ];
 
 const Skills = () => {
