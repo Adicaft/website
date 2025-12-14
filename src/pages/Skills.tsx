@@ -145,7 +145,7 @@ const Skills = () => {
                   className="flex items-center space-x-4"
                 >
                   <div className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center">
-                    {software.logo.startsWith('/') ? (
+                    {software.logo.startsWith('/') || software.logo.startsWith('http') ? (
                       <img
                         src={software.logo}
                         alt={software.name}
