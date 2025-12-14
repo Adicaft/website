@@ -10,7 +10,7 @@ const services = [
     description: 'Professional video editing with cinematic storytelling, color grading, and seamless transitions.',
     features: ['Cinematic Editing', 'Color Grading', 'Audio Sync', 'Transitions'],
     color: 'from-blue-400 to-blue-600',
-    price: 'Starting at $50'
+
   },
   {
     icon: Zap,
@@ -18,7 +18,7 @@ const services = [
     description: 'Stunning VFX compositions, green screen work, and digital effects that captivate audiences.',
     features: ['Compositing', 'Green Screen', 'Digital Effects', 'Motion Tracking'],
     color: 'from-purple-400 to-purple-600',
-    price: 'Starting at $100'
+
   },
   {
     icon: Palette,
@@ -26,7 +26,7 @@ const services = [
     description: 'Eye-catching motion graphics, animated logos, and dynamic visual elements for your content.',
     features: ['Logo Animation', 'Title Sequences', 'Infographics', '2D Animation'],
     color: 'from-pink-400 to-pink-600',
-    price: 'Starting at $75'
+
   },
   {
     icon: Volume2,
@@ -34,7 +34,7 @@ const services = [
     description: 'Professional audio editing, sound effects, and music synchronization for immersive experiences.',
     features: ['Audio Mixing', 'Sound Effects', 'Music Sync', 'Voice Enhancement'],
     color: 'from-green-400 to-green-600',
-    price: 'Starting at $40'
+
   },
   {
     icon: Eye,
@@ -42,7 +42,7 @@ const services = [
     description: 'Professional color correction and grading to enhance the mood and visual appeal of your videos.',
     features: ['Color Correction', 'Mood Enhancement', 'Cinematic Look', 'Style Matching'],
     color: 'from-orange-400 to-orange-600',
-    price: 'Starting at $60'
+
   },
   {
     icon: Camera,
@@ -50,7 +50,7 @@ const services = [
     description: 'Complete post-production services from raw footage to final delivery with professional quality.',
     features: ['Full Workflow', 'Quality Control', 'Format Delivery', 'Revisions'],
     color: 'from-cyan-400 to-cyan-600',
-    price: 'Custom Quote'
+
   }
 ];
 
@@ -70,7 +70,7 @@ const Services = () => {
               <span className="text-lime-400 font-medium">Services</span>
             </h1>
             <p className="text-lg lg:text-xl text-slate-400 max-w-3xl mx-auto">
-              Comprehensive post-production services to bring your creative vision to life 
+              Comprehensive post-production services to bring your creative vision to life
               with professional quality and cinematic excellence
             </p>
           </motion.div>
@@ -115,9 +115,7 @@ const Services = () => {
                   ))}
                 </div>
 
-                <div className="text-lime-400 font-semibold text-lg mb-6">
-                  {service.price}
-                </div>
+
 
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -150,8 +148,8 @@ const Services = () => {
                 <div className="text-left">
                   <h4 className="text-emerald-400 font-semibold mb-2">Why Choose Adityakeyedits?</h4>
                   <p className="text-slate-300 text-sm leading-relaxed">
-                    "Every project gets my personal attention. I don't just deliver what you ask for—I deliver 
-                    what your audience needs to see. Fast turnaround, unlimited revisions until you're 100% 
+                    "Every project gets my personal attention. I don't just deliver what you ask for—I deliver
+                    what your audience needs to see. Fast turnaround, unlimited revisions until you're 100%
                     satisfied, and always within budget. Your success is my success."
                   </p>
                 </div>
@@ -163,7 +161,7 @@ const Services = () => {
                 Ready to bring your vision to life?
               </h3>
               <p className="text-slate-400 mb-8 text-lg">
-                Let's collaborate and create something amazing together. 
+                Let's collaborate and create something amazing together.
                 From concept to final delivery, I'll ensure your project exceeds expectations.
               </p>
               <motion.div

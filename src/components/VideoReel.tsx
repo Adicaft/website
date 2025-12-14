@@ -11,6 +11,7 @@ interface VideoReelProps {
 const VideoReel: React.FC<VideoReelProps> = ({ index }) => {
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoId = getYouTubeVideoId(index);
 
   const handleLike = (e: React.MouseEvent) => {
@@ -23,11 +24,20 @@ const VideoReel: React.FC<VideoReelProps> = ({ index }) => {
     setShares(prev => prev + 1);
   };
 
-  return (
-    <div className="relative group">
-      <YouTubeEmbed videoId={videoId} index={index} />
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
 
-      <div className="absolute right-2 sm:right-3 lg:right-4 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col space-y-2 sm:space-y-3 lg:space-y-4">
+  return (
+    <div
+      className="relative group"
+      onMouseEnter={() => setIsPlaying(true)}
+      onMouseLeave={() => setIsPlaying(false)}
+      onClick={togglePlay}
+    >
+      <YouTubeEmbed videoId={videoId} index={index} isPlaying={isPlaying} />
+
+      <div className={`absolute right-2 sm:right-3 lg:right-4 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col space-y-2 sm:space-y-3 lg:space-y-4 transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
         <button
           onClick={handleLike}
           className="flex flex-col items-center space-y-1"
