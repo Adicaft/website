@@ -51,8 +51,8 @@ export const AnimatedTestimonials = ({
             <div className="flex items-center justify-center h-full">
               <div className="w-64 h-64 bg-gradient-to-br from-lime-400 to-purple-500 rounded-3xl p-1">
                 <div className="w-full h-full rounded-3xl overflow-hidden">
-                  <img 
-                    src={testimonials[active].src} 
+                  <img
+                    src={testimonials[active].src}
                     alt={testimonials[active].name}
                     className="w-full h-full object-cover"
                   />

@@ -12,7 +12,7 @@ const Home = () => {
     { icon: Users, label: 'Happy Clients', value: '25+', color: 'text-blue-400' },
     { icon: Play, label: 'Projects Completed', value: '50+', color: 'text-purple-400' },
     { icon: Clock, label: 'Hours of Content', value: '200+', color: 'text-green-400' },
-    { icon: Award, label: 'Years Experience', value: '1+', color: 'text-orange-400' }
+    { icon: Award, label: 'Years Experience', value: '2+', color: 'text-orange-400' }
   ];
 
   const services = [
