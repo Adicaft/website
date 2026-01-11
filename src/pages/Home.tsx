@@ -6,6 +6,7 @@ import VideoReel from '../components/VideoReel';
 import VideoCarousel from '../components/VideoCarousel';
 import CinematicHero from '../components/CinematicHero';
 import { AnimatedTestimonials } from '../components/ui/animated-testimonials';
+import LandscapeVideo from '../components/LandscapeVideo';
 
 const Home = () => {
   const stats = [
@@ -129,6 +130,8 @@ const Home = () => {
           </motion.div>
 
           <VideoCarousel />
+
+          <LandscapeVideo videoId="6EIrcySbSKA" />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

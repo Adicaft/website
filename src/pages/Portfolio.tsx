@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import VideoReel from '../components/VideoReel';
+import LandscapeVideo from '../components/LandscapeVideo';
 
 const Portfolio = () => {
   const [filter, setFilter] = useState('all');
@@ -33,8 +34,8 @@ const Portfolio = () => {
                 <div>
                   <h4 className="text-yellow-400 font-semibold mb-2">Portfolio Highlights</h4>
                   <p className="text-slate-300 text-sm leading-relaxed">
-                    "Each project in my portfolio represents a unique challenge overcome and a client's vision 
-                    brought to life. From corporate presentations to creative campaigns, I adapt my style 
+                    "Each project in my portfolio represents a unique challenge overcome and a client's vision
+                    brought to life. From corporate presentations to creative campaigns, I adapt my style
                     to match your brand and audience perfectly."
                   </p>
                 </div>
@@ -46,7 +47,7 @@ const Portfolio = () => {
               <span className="text-lime-400 font-medium">Portfolio</span>
             </h1>
             <p className="text-lg lg:text-xl text-slate-400 max-w-3xl mx-auto">
-              A showcase of cinematic videos, visual effects, and creative projects 
+              A showcase of cinematic videos, visual effects, and creative projects
               that bring stories to life
             </p>
           </motion.div>
@@ -64,11 +65,10 @@ const Portfolio = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setFilter(category.id)}
-                className={`px-4 lg:px-6 py-2 lg:py-3 rounded-full text-sm lg:text-base font-medium transition-all duration-300 ${
-                  filter === category.id
-                    ? 'bg-lime-400 text-slate-900'
-                    : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-white'
-                }`}
+                className={`px-4 lg:px-6 py-2 lg:py-3 rounded-full text-sm lg:text-base font-medium transition-all duration-300 ${filter === category.id
+                  ? 'bg-lime-400 text-slate-900'
+                  : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-white'
+                  }`}
               >
                 {category.name}
               </motion.button>
@@ -81,6 +81,8 @@ const Portfolio = () => {
               <VideoReel key={index} index={index} enableSound={true} />
             ))}
           </div>
+
+          <LandscapeVideo videoId="6EIrcySbSKA" />
 
           {/* Portfolio Stats */}
           <motion.div
