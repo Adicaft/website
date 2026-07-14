@@ -119,6 +119,7 @@ const VideoCarousel = () => {
     { name: "Motion Graphics", title: "Motion Designer", company: "Brand Campaign" },
     { name: "Color Grading", title: "Colorist", company: "Music Video" },
     { name: "VFX Composition", title: "Compositor", company: "Short Film" },
+    { name: "Short Form Magic", title: "Content Creator", company: "YouTube Shorts" },
   ];
 
   const totalVideos = videos.length;

@@ -236,9 +236,9 @@ export const NavbarLogo = () => {
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1"
     >
       <img
-        src="/aditya-logo.png"
+        src="/aditya-logo-300.png"
         alt="Adityakeyedits"
-        className="h-12 w-auto object-contain"
+        className="h-12 w-auto object-contain scale-[2.5] origin-left"
       />
     </Link>
   );

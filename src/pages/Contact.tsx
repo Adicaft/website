@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MessageCircle, Clock, Send } from 'lucide-react';
 
 const Contact = () => {
+  const [result, setResult] = useState("");
+  
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setResult("Sending...");
+    
+    const formData = new FormData(event.currentTarget);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Message sent successfully!");
+        (event.target as HTMLFormElement).reset();
+      } else {
+        setResult(data.message);
+      }
+    } catch (error) {
+      setResult("Something went wrong!");
+    }
+  };
+
   const contactInfo = [
     {
       icon: Mail,
@@ -147,11 +174,10 @@ const Contact = () => {
               </h3>
 
               <form 
-                action="mailto:adityasoni4474@gmail.com"
-                method="post"
-                encType="text/plain"
+                onSubmit={onSubmit}
                 className="space-y-6"
               >
+                <input type="hidden" name="access_key" value="c7470ec3-0e61-4c68-9594-ce0d8d77f533" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-slate-400 text-sm mb-2">
@@ -162,7 +188,6 @@ const Contact = () => {
                       name="name"
                       required
                       className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors"
-                      placeholder="John Doe"
                     />
                   </div>
                   <div>
@@ -174,7 +199,6 @@ const Contact = () => {
                       name="email"
                       required
                       className="w-full bg-slate-700/50 text-white p-4 rounded-xl border border-slate-600 focus:border-lime-400 focus:outline-none transition-colors"
-                      placeholder="john@example.com"
                     />
                   </div>
                 </div>
@@ -234,6 +258,11 @@ const Contact = () => {
                   <Send size={20} />
                   <span>Send Message</span>
                 </motion.button>
+                {result && (
+                  <div className="text-center text-lime-400 mt-4 font-medium">
+                    {result}
+                  </div>
+                )}
               </form>
             </motion.div>
           </div>

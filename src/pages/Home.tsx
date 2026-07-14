@@ -62,6 +62,12 @@ const Home = () => {
       designation: "Entertainment Channel",
       src: "/desi-joke-jar.jpg",
     },
+    {
+      quote: "I've worked with Aditya on multiple videos, and he has consistently delivered high-quality edits. He takes feedback positively, communicates well, and continuously improves his work. His attention to detail, transitions, and overall video flow make the content more engaging for viewers. I would confidently recommend him to other content creators looking for a dependable video editor.",
+      name: "Nikhil Joshi",
+      designation: "Content Creator",
+      src: "/IMG_8310.JPG.jpeg",
+    },
   ];
 
   return (

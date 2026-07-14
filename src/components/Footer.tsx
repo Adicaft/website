@@ -4,9 +4,9 @@ import { Instagram, Linkedin, Mail, Phone, MessageCircle, MapPin } from 'lucide-
 const Logo = () => (
   <div className="flex items-center space-x-2">
     <img
-      src="/aditya-logo.png"
-      alt="Adityakeyedits"
-      className="h-12 w-auto object-contain"
+      src="/aditya-logo-300.png"
+      alt="Adityakeyedits Logo"
+      className="h-12 w-auto object-contain scale-[2.5] origin-left"
     />
   </div>
 );
