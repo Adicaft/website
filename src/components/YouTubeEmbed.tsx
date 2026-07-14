@@ -21,10 +21,9 @@ const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
   // autoplay=0: We control playback manually
   // controls=0: Hide player controls
   // rel=0: Show related videos from the same channel (or none if possible)
-  // loop=1: Loop the video
-  // playlist={videoId}: Required for loop to work
+  // loop parameter removed to prevent YouTube showing next/previous playlist buttons
   // mute=0: Unmute by default (user request)
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=0&controls=0&rel=0&showinfo=0&loop=1&playlist=${videoId}&mute=0`;
+  const embedUrl = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=0&controls=0&rel=0&showinfo=0&mute=0`;
 
   useEffect(() => {
     if (!iframeRef.current?.contentWindow) return;

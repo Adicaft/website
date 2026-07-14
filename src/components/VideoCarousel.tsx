@@ -10,7 +10,9 @@ interface VideoCardProps {
   index: number;
   videoId: string;
   isPlaying: boolean;
+  isActive: boolean;
   onHover: (index: number | null) => void;
+  onClick: () => void;
   style: React.CSSProperties;
 }
 
@@ -21,7 +23,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
   index,
   videoId,
   isPlaying,
+  isActive,
   onHover,
+  onClick,
   style
 }) => {
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
@@ -49,6 +53,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
       style={style}
       onMouseEnter={() => onHover(index)}
       onMouseLeave={() => onHover(null)}
+      onClick={() => {
+        if (!isActive) onClick();
+      }}
     >
       <YouTubeEmbed
         videoId={videoId}
@@ -219,8 +226,6 @@ const VideoCarousel = () => {
   return (
     <div
       className="relative w-full max-w-6xl mx-auto h-[600px] flex items-center justify-center overflow-hidden"
-      onMouseEnter={() => setIsAutoPlaying(false)}
-      onMouseLeave={() => setIsAutoPlaying(true)}
     >
       {/* Navigation Buttons */}
       <button
@@ -239,19 +244,28 @@ const VideoCarousel = () => {
 
       {/* Video Cards Container */}
       <div className="relative w-full h-full flex items-center justify-center perspective-1000">
-        {videos.map((video, index) => (
-          <VideoCard
-            key={index}
-            name={video.name}
-            title={video.title}
-            company={video.company}
-            index={index}
-            videoId={getYouTubeVideoId(index)}
-            isPlaying={index === hoveredIndex}
-            onHover={setHoveredIndex}
-            style={getCardStyle(index)}
-          />
-        ))}
+        {videos.map((video, index) => {
+          let offset = (index - currentIndex);
+          if (offset > totalVideos / 2) offset -= totalVideos;
+          if (offset < -totalVideos / 2) offset += totalVideos;
+          const isActive = offset === 0;
+
+          return (
+            <VideoCard
+              key={index}
+              name={video.name}
+              title={video.title}
+              company={video.company}
+              index={index}
+              videoId={getYouTubeVideoId(index)}
+              isPlaying={index === hoveredIndex}
+              isActive={isActive}
+              onHover={setHoveredIndex}
+              onClick={() => setCurrentIndex(index)}
+              style={getCardStyle(index)}
+            />
+          );
+        })}
       </div>
 
       {/* Dots Indicator */}
