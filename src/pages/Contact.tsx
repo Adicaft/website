@@ -3,10 +3,16 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MessageCircle, Clock, Send } from 'lucide-react';
 
 const Contact = () => {
+  useEffect(() => {
+    document.title = "Contact | Hire Aditya Soni for VFX & Video Editing - Adityakeyedits";
+  }, []);
+
   const [result, setResult] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsSubmitting(true);
     setResult("Sending...");
     
     const formData = new FormData(event.currentTarget);
@@ -27,6 +33,8 @@ const Contact = () => {
       }
     } catch (error) {
       setResult("Something went wrong!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -250,15 +258,16 @@ const Contact = () => {
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   type="submit"
-                  className="w-full bg-lime-400 text-slate-900 py-5 rounded-xl text-lg font-medium hover:bg-lime-300 transition-colors flex items-center justify-center space-x-3"
+                  disabled={isSubmitting}
+                  className={`w-full bg-lime-400 text-slate-900 py-5 rounded-xl text-lg font-medium transition-colors flex items-center justify-center space-x-3 ${isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:bg-lime-300'}`}
                 >
                   <Send size={20} />
-                  <span>Send Message</span>
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                 </motion.button>
-                {result && (
+                {result && !isSubmitting && (
                   <div className="text-center text-lime-400 mt-4 font-medium">
                     {result}
                   </div>

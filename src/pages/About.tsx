@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, GraduationCap, Briefcase } from 'lucide-react';
 
 const About = () => {
+  useEffect(() => {
+    document.title = "About Aditya Soni | VFX Artist - Adityakeyedits";
+  }, []);
+
   const personalInfo = [
     { icon: Mail, label: 'E-mail', value: 'adityasoni4474@gmail.com', clickable: true, href: 'mailto:adityasoni4474@gmail.com' },
     { icon: Phone, label: 'Phone', value: '+91 6388934474', clickable: true, href: 'tel:+916388934474' },

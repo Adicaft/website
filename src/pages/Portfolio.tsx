@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import VideoReel from '../components/VideoReel';
 import LandscapeVideo from '../components/LandscapeVideo';
 
 const Portfolio = () => {
+  useEffect(() => {
+    document.title = "Portfolio | VFX & Video Editing Projects - Adityakeyedits";
+  }, []);
+
   const [filter, setFilter] = useState('all');
   const totalVideos = 8;
 
@@ -91,12 +95,13 @@ const Portfolio = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-6 lg:p-8"
           >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
               {[
-                { label: 'Projects Completed', value: '50+' },
-                { label: 'Happy Clients', value: '25+' },
+                { label: 'Projects Completed', value: '250+' },
+                { label: 'Happy Clients', value: '15+' },
                 { label: 'Hours of Content', value: '200+' },
-                { label: 'Awards Won', value: '5+' }
+                { label: 'Awards Won', value: '5+' },
+                { label: 'Views Generated', value: '8 Lakh+' }
               ].map((stat, index) => (
                 <motion.div
                   key={index}

@@ -14,7 +14,7 @@ const Logo = () => (
 const Footer = () => {
   const socialLinks = [
     { icon: Instagram, href: 'https://www.instagram.com/adityashroffvines/', label: 'Instagram' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/aditya-soni-4474-', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/adityakeyedits/', label: 'LinkedIn' },
     { icon: MessageCircle, href: 'https://wa.me/916388934474', label: 'WhatsApp' }
   ];
 
@@ -84,24 +84,40 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-6 text-xl">Get In Touch</h3>
             <div className="space-y-4">
-              {contactDetails.map((contact, index) => (
-                <motion.a
-                  key={index}
-                  href={contact.href}
-                  whileHover={{ scale: 1.02 }}
-                  className="flex items-center space-x-3 p-3 bg-slate-800/50 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
-                >
-                  <div className="w-10 h-10 bg-lime-400/10 rounded-full flex items-center justify-center">
-                    <contact.icon className="text-lime-400" size={18} />
-                  </div>
-                  <div>
-                    <div className="text-slate-400 text-sm">{contact.name}</div>
-                    <div className="text-white font-medium group-hover:text-lime-400 transition-colors">
-                      {contact.value}
+              {contactDetails.map((contact, index) => {
+                const isPlain = contact.href === '#';
+                const innerContent = (
+                  <>
+                    <div className="w-10 h-10 bg-lime-400/10 rounded-full flex items-center justify-center">
+                      <contact.icon className="text-lime-400" size={18} />
                     </div>
+                    <div>
+                      <div className="text-slate-400 text-sm">{contact.name}</div>
+                      <div className="text-white font-medium group-hover:text-lime-400 transition-colors">
+                        {contact.value}
+                      </div>
+                    </div>
+                  </>
+                );
+                
+                return isPlain ? (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-3 p-3 bg-slate-800/50 rounded-xl transition-all duration-300 group"
+                  >
+                    {innerContent}
                   </div>
-                </motion.a>
-              ))}
+                ) : (
+                  <motion.a
+                    key={index}
+                    href={contact.href}
+                    whileHover={{ scale: 1.02 }}
+                    className="flex items-center space-x-3 p-3 bg-slate-800/50 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
+                  >
+                    {innerContent}
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
         </div>

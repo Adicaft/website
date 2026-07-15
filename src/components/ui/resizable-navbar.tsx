@@ -223,9 +223,9 @@ export const MobileNavToggle = ({
   onClick: () => void;
 }) => {
   return isOpen ? (
-    <X className="text-white cursor-pointer" onClick={onClick} size={20} />
+    <X className="text-white cursor-pointer mr-4 lg:mr-0" onClick={onClick} size={20} />
   ) : (
-    <Menu className="text-white cursor-pointer" onClick={onClick} size={20} />
+    <Menu className="text-white cursor-pointer mr-4 lg:mr-0" onClick={onClick} size={20} />
   );
 };
 

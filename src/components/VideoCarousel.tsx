@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle } from 'lucide-react';
 import YouTubeEmbed from './YouTubeEmbed';
 import { getYouTubeVideoId } from '../config/videoIds';
@@ -31,6 +31,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
   const [likes, setLikes] = useState(Math.floor(Math.random() * 1000) + 100);
   const [shares, setShares] = useState(Math.floor(Math.random() * 50) + 10);
   const [comments, setComments] = useState(Math.floor(Math.random() * 100) + 20);
+  const isTouchDevice = useRef(false);
 
   const handleLike = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -51,10 +52,21 @@ const VideoCard: React.FC<VideoCardProps> = ({
     <div
       className={`absolute top-0 left-0 w-[280px] sm:w-[320px] aspect-[9/16] rounded-3xl overflow-hidden bg-slate-800 cursor-pointer transition-all duration-500 ease-out shadow-2xl`}
       style={style}
-      onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}
+      onTouchStart={() => {
+        isTouchDevice.current = true;
+      }}
+      onMouseEnter={() => {
+        if (!isTouchDevice.current) onHover(index);
+      }}
+      onMouseLeave={() => {
+        if (!isTouchDevice.current) onHover(null);
+      }}
       onClick={() => {
-        if (!isActive) onClick();
+        if (!isActive) {
+          onClick();
+        } else {
+          onHover(isPlaying ? null : index);
+        }
       }}
     >
       <YouTubeEmbed

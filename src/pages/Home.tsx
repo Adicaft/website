@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Play, Award, Users, Star, ArrowRight, Zap, Eye, Clock } from 'lucide-react';
@@ -9,11 +9,16 @@ import { AnimatedTestimonials } from '../components/ui/animated-testimonials';
 import LandscapeVideo from '../components/LandscapeVideo';
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Aditya Soni | VFX Artist & Video Editor - Adityakeyedits";
+  }, []);
+
   const stats = [
-    { icon: Users, label: 'Happy Clients', value: '25+', color: 'text-blue-400' },
-    { icon: Play, label: 'Projects Completed', value: '50+', color: 'text-purple-400' },
+    { icon: Users, label: 'Happy Clients', value: '15+', color: 'text-blue-400' },
+    { icon: Play, label: 'Projects Completed', value: '250+', color: 'text-purple-400' },
     { icon: Clock, label: 'Hours of Content', value: '200+', color: 'text-green-400' },
-    { icon: Award, label: 'Years Experience', value: '2+', color: 'text-orange-400' }
+    { icon: Award, label: 'Years Experience', value: '2+', color: 'text-orange-400' },
+    { icon: Eye, label: 'Views Generated', value: '8 Lakh+', color: 'text-teal-400' }
   ];
 
   const services = [
@@ -78,7 +83,7 @@ const Home = () => {
       {/* Stats Section */}
       <section className="py-12 lg:py-20 bg-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
